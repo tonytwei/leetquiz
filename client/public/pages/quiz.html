@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>LeetQuiz</title>
+        <meta name="description" content="LeetQuiz: DSA Quiz App">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" type="image/ico" href="../images/favicon.ico">
+        
+        <script src="../assets/quiz.js"></script>
+        <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/colors.css">
+        <link rel="stylesheet" href="../styles/quiz-style.css">
+        <link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Inconsolata&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <div class="container container-a">
+            <div class="background-linear"></div>
+            <header>
+                <div class="logo">
+                    <img src="../images/logo.png" alt="logo">
+                    <h1>LeetQuiz</h1>
+                </div>
+                <div class="nav-bar">
+                    <!-- TODO: edit anchors -->
+                    <ul>
+                        <l1>
+                            <a href="../index.html">HOME</a>
+                        </l1>
+                        <li>
+                            <a href="#">PRACTICE</a>
+                        </li>
+                        <l1>
+                            <a id="sign-up" class="button" href="pages/quiz.html">SIGN UP</a>
+                        </l1>
+                    </ul>
+                </div>
+            </header>
+            <div class="quiz-container">
+                <div class="quiz-window">
+                    <div class="quiz-left">
+                        <div class="settings">
+                            <div class="choose-difficulty">
+                                <h2>DIFFICULTY:</h2>
+                                <div class="checkbox-container">
+                                    <input type="checkbox" id="easy" name="difficulty" value="easy"> 
+                                    <label for="easy">Easy</label>
+                                </div>
+                                <div class="checkbox-container">
+                                    <input type="checkbox" id="medium" name="difficulty" value="medium"> 
+                                    <label for="medium">Medium</label>
+                                </div>
+                                <div class="checkbox-container">
+                                    <input type="checkbox" id="hard" name="difficulty" value="hard"> 
+                                    <label for="hard">Hard</label>
+                                </div>
+                            </div>
+                            <div class="topics">
+                                <div class="choose-topics">
+                                    <h2>TOPICS:</h2>
+                                    <div class="checkbox-container">
+                                        <input type="checkbox" id="arrays" name="topics" value="arrays"> 
+                                        <label for="arrays">Arrays</label>
+                                    </div>
+                                    <div class="checkbox-container">
+                                        <input type="checkbox" id="two-pointers" name="topics" value="two-pointers"> 
+                                        <label for="two-pointers">Two Pointers</label>
+                                    </div>
+                                    <div class="checkbox-container">
+                                        <input type="checkbox" id="sliding-window" name="topics" value="sliding-window"> 
+                                        <label for="sliding-window">Sliding Window</label>
+                                    </div>
+                                    <div class="checkbox-container">
+                                        <input type="checkbox" id="stack" name="topics" value="stack"> 
+                                        <label for="stack">Stack</label>
+                                    </div>
+                                    <div class="checkbox-container">
+                                        <input type="checkbox" id="binary-search" name="topics" value="binary-search"> 
+                                        <label for="binary-search">Binary Search</label>
+                                    </div>
+                                    <div class="checkbox-container">
+                                        <input type="checkbox" id="linked-list" name="topics" value="linked-list"> 
+                                        <label for="linked-list">Linked List</label>
+                                    </div>
+                                    <div class="checkbox-container">
+                                        <input type="checkbox" id="trees" name="topics" value="trees"> 
+                                        <label for="trees">Trees</label>
+                                    </div>
+                                    <div class="checkbox-container">
+                                        <input type="checkbox" id="heap-priority-queue" name="topics" value="heap-priority-queue"> 
+                                        <label for="heap-priority-queue">Heap</label>
+                                    </div>
+                                    <div class="checkbox-container">
+                                        <input type="checkbox" id="backtracking" name="topics" value="backtracking"> 
+                                        <label for="backtracking">Backtracking</label>
+                                    </div>
+                                    <div class="checkbox-container">
+                                        <input type="checkbox" id="graphs" name="topics" value="graphs"> 
+                                        <label for="graphs">Graphs</label>
+                                    </div>
+                                    <div class="checkbox-container">
+                                        <input type="checkbox" id="dynamic-programming" name="topics" value="dynamic-programming"> 
+                                        <label for="dynamic-programming">DP</label>
+                                    </div>  
+                                    <div class="checkbox-container">
+                                        <input type="checkbox" id="greedy" name="topics" value="greedy"> 
+                                        <label for="greedy">Greedy</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="choose-set">
+                                <h2>SET:</h2>
+                                <select id="set" name="set">
+                                    <option value="all">All</option>
+                                    <option value="custom">Custom</option>
+                                    <option value="gdsc-arrays">GDSC: Arrays</option>
+                                </select>
+                            </div>
+                            <div class="clear-filters">
+                                <button id="clear-filters" type="button" name="clear-filters">CLEAR FILTERS</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="quiz-right">
+                        <div class="question-header">
+                            <h1>Title</h1>
+                            <h2>Difficulty</h2>
+                        </div>
+                        <div class="quiz-body">
+                            <div class="question-description">
+                                <p>Description</p>
+                                <div class="question-examples-container">
+                                    <div class="question-example">
+                                        <h3>Example 1: </h3>
+                                        <p>Input: </p>
+                                        <p>Output: </p>
+                                    </div>
+                                </div>
+                                <div class="question-constraints">
+                                    <h3>Constraints:</h3>
+                                    <ul>
+                                        <li>
+                                            <p class="code">Constraint Example</p>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="question-answer">
+                                <p>Question</p>
+                                <div class="radio-container">
+                                    <div class="radio-option">
+                                        <input type="radio" id="answer-0" name="answer" value="0"> 
+                                        <label for="answer-0">0</label>
+                                    </div>
+                                    <div class="radio-option">
+                                        <input type="radio" id="answer-1" name="answer" value="1"> 
+                                        <label for="answer-1">1</label>
+                                    </div>
+                                    <div class="radio-option">
+                                        <input type="radio" id="answer-2" name="answer" value="2"> 
+                                        <label for="answer-2">2</label>
+                                    </div>
+                                    <div class="radio-option">
+                                        <input type="radio" id="answer-3" name="answer" value="3"> 
+                                        <label for="answer-3">3</label>
+                                    </div>
+                                </div>
+                                <button id="submit-answer" type="button" name="submit-answer">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
