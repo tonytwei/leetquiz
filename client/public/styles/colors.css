@@ -3,6 +3,10 @@
     --background-code: #222222;
     --accent-lime: #55d6be;
     --accent-dark-lime: #40a190;
+    --accent-red: #D6556D; /* This is a light red color */
+    --accent-dark-red: #A14051; /* This is a darker shade of red */
+    --accent-blue: #4355bc;
+    --accent-dark-blue: #4355bc;
     --text-a: #ccd6f6;
     --text-b: #8892b0;
     --text-c: #596281;

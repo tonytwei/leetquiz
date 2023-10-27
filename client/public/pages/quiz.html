@@ -148,24 +148,27 @@
                             <div class="question-answer">
                                 <p>Question</p>
                                 <div class="radio-container">
-                                    <div class="radio-option correct-answer">
+                                    <div class="radio-option correct-answer" for="answer-3">
                                         <input type="radio" id="answer-0" name="answer" value="0"> 
                                         <label for="answer-0">0</label>
                                     </div>
-                                    <div class="radio-option">
+                                    <div class="radio-option wrong-answer" for="answer-3">
                                         <input type="radio" id="answer-1" name="answer" value="1"> 
                                         <label for="answer-1">1</label>
                                     </div>
-                                    <div class="radio-option">
+                                    <div class="radio-option" for="answer-3">
                                         <input type="radio" id="answer-2" name="answer" value="2"> 
                                         <label for="answer-2">2</label>
                                     </div>
-                                    <div class="radio-option">
+                                    <div class="radio-option" for="answer-3">
                                         <input type="radio" id="answer-3" name="answer" value="3"> 
                                         <label for="answer-3">3</label>
                                     </div>
                                 </div>
-                                <button id="submit-answer" type="button" name="submit-answer">Submit</button>
+                                <div class="button-container">
+                                    <button id="submit-answer" type="button" name="submit-answer">Submit</button>
+                                    <button class="hidden" id="next-question" type="button" name="next-question">Next</button>
+                                </div>
                             </div>
                         </div>
                     </div>

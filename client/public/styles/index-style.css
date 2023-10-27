@@ -41,7 +41,7 @@ p {
 
 .intro-text-block {
     position: absolute;
-    top: -10px;
+    top: -5%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -102,7 +102,6 @@ p {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding-bottom: 20px;
 }
 
 .companies-text-block > h3 {

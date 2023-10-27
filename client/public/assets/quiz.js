@@ -8,6 +8,16 @@ function loadQuestion(questionID, questionNumber) {
         .catch(error => console.error(error))
 }
 
+function loadQuestionAPI(questionID, questionNumber) {
+    fetch(`https://raw.githubusercontent.com/tonytwei/leetquiz/main/client/public/assets/questions/0242.json`)
+        .then(response => response.json())
+        .then(data => {
+            displayDescription(data);
+            displayQuestion(data, questionNumber);
+        })
+        .catch(error => console.error(error))
+}
+
 function displayDescription(questionData) {
     document.querySelector(".question-header > h1").textContent = questionData.title;
     document.querySelector(".question-header > h2").textContent = questionData.difficulty;
@@ -60,6 +70,7 @@ function displayQuestion(questionData, questionNumber) {
 
         let radioOption = document.createElement("div");
         radioOption.classList.add("radio-option");
+        radioOption.setAttribute('for', 'answer-3');
         radioOption.appendChild(radioButton);
         radioOption.appendChild(label);
 
@@ -68,25 +79,39 @@ function displayQuestion(questionData, questionNumber) {
 }
 
 function checkAnswer() {
-    let selectedOption = document.querySelector('input[name="answer"]:checked').value;
-    if (currentAnswer != selectedOption) {
-        // wrong condition
-        alert("Wrong Answer");
+    let input = document.querySelector('input[name="answer"]:checked');
+    let radioContainer = input.parentElement;
+    if (currentAnswer != input.value) {
+        radioContainer.classList.add("wrong-answer");
     } else {
         // correct condition
-        alert("Correct Answer");
-        questionNumber += 1;
-        loadQuestion("0217", questionNumber);
+        radioContainer.classList.add("correct-answer");
+        renderNextButton();
     }
 }
 
+function renderNextButton() {
+    let nextButton = document.getElementById("next-question");
+    nextButton.classList.remove("hidden");
+    nextButton.addEventListener("click", () => {
+        nextButton.classList.add("hidden");
+        questionNumber += 1;
+        loadQuestion(questionID, questionNumber);
+    });
+}
+
+/* 
+    questionNumber += 1;
+    loadQuestion(questionID, questionNumber);
+*/
 
 let questionNumber = 0;
 let currentAnswer = 'a';
-//loadQuestion("0217", questionNumber);
-loadQuestion("0242", questionNumber);
+// let questionID = "0217"
+let questionID = "0242"
+loadQuestionAPI(questionID, questionNumber);
 
 document.addEventListener("DOMContentLoaded", function () {
-    var submitButton = document.getElementById("submit-answer");
+    const submitButton = document.getElementById("submit-answer");
     submitButton.addEventListener("click", checkAnswer);
 });

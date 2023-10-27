@@ -1,13 +1,12 @@
 html, body {
     height: 100%;
+    background: var(--light-grey);
 }
 
 .container-a {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 100%;
-    background: var(--light-grey);
 }
 
 header {
@@ -169,12 +168,11 @@ select:focus {
     padding: 0px 10px 10px 10px;
 }
 
-#submit-answer {
-    width: 100px;
-    background: white;
-    border: 3px solid var(--text-a);
-    border-radius: 5px;
-    padding: 5px 10px; 
+.radio-container {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 0px;
+    row-gap: 4px;
 }
 
 .radio-option {
@@ -182,9 +180,19 @@ select:focus {
     flex-direction: row;
     justify-content: left;
     align-items: center;
-    margin: 5px;
+    padding: 2px 5px;
+    border: 2px solid transparent;
 }
 
+.correct-answer {
+    background-color: var(--accent-lime);
+    border: 2px solid var(--accent-dark-lime);
+}
+
+.wrong-answer {
+    background-color: var(--accent-red);
+    border: 2px solid var(--accent-dark-red);
+}
 
 input[type="radio"] {
     appearance: none;
@@ -200,11 +208,18 @@ input[type="radio"] {
 }
 
 input[type="radio"]:checked {
-    background-color: var(--accent-lime);
-    border: 3px solid var(--accent-dark-lime);
+    background-color: var(--accent-blue);
+    border: 3px solid var(--accent-dark-blue);
 }
 
-.correct-answer {
-    background-color: var(--accent-lime);
-    border: 3px solid var(--accent-dark-lime);
+#submit-answer, #next-question {
+    width: 100px;
+    background: white;
+    border: 3px solid var(--text-a);
+    border-radius: 5px;
+    padding: 5px 10px; 
+}
+
+.hidden {
+    display: none;
 }
