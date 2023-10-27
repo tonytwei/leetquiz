@@ -16,7 +16,7 @@ p {
 }
 
 .container-a {
-    height: 100vh; /* TODO: adjust */
+    height: 85vh; /* TODO: adjust */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -24,7 +24,7 @@ p {
 
 .background-linear {
     width: 100%;
-    height: 100%;
+    height: 85vh;
     z-index: -1;
     position: absolute;
     transform: skewY(5deg);
@@ -40,12 +40,13 @@ p {
 }
 
 .intro-text-block {
+    position: absolute;
+    top: -10px;
     display: flex;
     justify-content: center;
     align-items: center;
-    position: absolute;
     padding: 10%;
-    height: 90vh;
+    height: calc(100% - 90px);
     width: 100%;
 }
 
@@ -80,6 +81,8 @@ p {
     justify-content: center;
     max-width: 70%;
     min-width: none;
+    max-height: 80%;
+    min-height: none;
 }
 
 

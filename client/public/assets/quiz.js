@@ -83,7 +83,8 @@ function checkAnswer() {
 
 let questionNumber = 0;
 let currentAnswer = 'a';
-loadQuestion("0217", questionNumber);
+//loadQuestion("0217", questionNumber);
+loadQuestion("0242", questionNumber);
 
 document.addEventListener("DOMContentLoaded", function () {
     var submitButton = document.getElementById("submit-answer");
