@@ -1,5 +1,4 @@
 html, body {
-    height: 100%;
     background: var(--light-grey);
 }
 
@@ -20,7 +19,7 @@ header {
     width: 100%;
     height: max-content;
     color: white;
-    padding: 60px 0px 0px 0px;
+    padding: 60px 0px 60px 0px;
 }
 
 .quiz-window {
@@ -198,8 +197,8 @@ input[type="radio"] {
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
-    width: 15px;
-    height: 15px;
+    min-width: 15px;
+    min-height: 15px;
     background-color: #fff;
     border: 3px solid var(--text-a);
     border-radius: 50%;
