@@ -1,6 +1,6 @@
 async function loadQuestion(questionID, questionNumber) {
     try {
-        const response = await fetch(`../assets/questions/${questionID}.json`);
+        const response = await fetch(`/assets/questions/${questionID}.json`);
         const data = await response.json();
         displayDescription(data);
         displayQuestion(data, questionNumber);
@@ -8,18 +8,6 @@ async function loadQuestion(questionID, questionNumber) {
         console.error(error);
     }
 }
-
-async function loadQuestionAPI(questionID, questionNumber) {
-    try {
-        const response = await fetch(`https://raw.githubusercontent.com/tonytwei/leetquiz/main/client/assets/questions/${questionID}.json`);
-        const data = await response.json();
-        displayDescription(data);
-        displayQuestion(data, questionNumber);
-    } catch (error) {
-        console.error(error);
-    }
-}
-
 
 function displayDescription(questionData) {
     document.querySelector(".question-header > h1").textContent = questionData.title;
@@ -153,18 +141,13 @@ function update() {
 */
 let numTopics = 12;
 let questionNumber = 0;
-let currentAnswer = 'a';
-// let questionID = "0217"
-let questionID = "0242";
-loadQuestionAPI(questionID, questionNumber);
-
-
+let currentAnswer = '0';
 
 document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
         checkbox.addEventListener("click", update);
     });
+    document.getElementById("clear-filters").addEventListener('click', clearFilters);
     document.getElementById("set").addEventListener('change', update);
     document.getElementById("submit-answer").addEventListener("click", checkAnswer);
-    document.getElementById("clear-filters").addEventListener('click', clearFilters);
 });

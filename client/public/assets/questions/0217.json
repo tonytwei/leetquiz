@@ -1,5 +1,5 @@
 {
-  "id": 217,
+  "id": "0217",
   "title": "217. Contains Duplicate",
   "difficulty": "Easy",
   "description": "Given an integer array 'nums', return 'true' if any value appears at least twice in the array, return 'false' if every element is distinct",

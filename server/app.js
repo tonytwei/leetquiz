@@ -5,15 +5,30 @@ const port = 3005;
 
 app.listen(port);
 
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, '../client/pages'));
+
 app.get('/', (req, res) => {
 	const filePath = path.join(__dirname, '../client/public/index.html');
 	res.sendFile(filePath);
 });
 
-app.get('/quiz', (req, res) => {
-	const filePath = path.join(__dirname, '../client/pages/quiz.html');
-	res.sendFile(filePath);
+// Serve static files from the 'public' directory
+app.use(express.static(path.join(__dirname, '../client/public')));
+
+let questionID = "0242";
+
+app.get('/quiz', async (req, res) => {
+	try {
+		const filePath = path.join(__dirname, '../client/pages/quiz-ejs.ejs');
+		const data = require(`../client/public/assets/questions/${questionID}.json`);
+		res.render(filePath, { data });
+	} catch (error) {
+		console.error(error);
+		res.status(500).send('Internal Server Error');
+	}
 });
+  
 
 // 404 page, must be at bottom
 app.use((req, res) => {
