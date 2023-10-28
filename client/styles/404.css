@@ -1,0 +1,22 @@
+html, body {
+    background: var(--light-grey);
+}
+
+.container-a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+header {
+    background: var(--dark-grey);
+}
+
+.body-container {
+    height: 100%;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--text-a);
+}

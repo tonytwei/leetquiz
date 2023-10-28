@@ -2,18 +2,22 @@
   "name": "leetquiz",
   "version": "1.0.0",
   "description": "Web based DSA quiz app",
-  "main": "/server/server.js",
+  "main": "server/server.js",
   "scripts": {
-    "test": "test"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server/server.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/tonytwei/leetquiz.git"
   },
-  "author": "",
+  "author": "tonytwei",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/tonytwei/leetquiz/issues"
   },
-  "homepage": "https://github.com/tonytwei/leetquiz#readme"
+  "homepage": "https://github.com/tonytwei/leetquiz#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
 }

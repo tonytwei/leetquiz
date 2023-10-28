@@ -11,7 +11,7 @@ async function loadQuestion(questionID, questionNumber) {
 
 async function loadQuestionAPI(questionID, questionNumber) {
     try {
-        const response = await fetch(`https://raw.githubusercontent.com/tonytwei/leetquiz/main/client/public/assets/questions/${questionID}.json`);
+        const response = await fetch(`https://raw.githubusercontent.com/tonytwei/leetquiz/main/client/assets/questions/${questionID}.json`);
         const data = await response.json();
         displayDescription(data);
         displayQuestion(data, questionNumber);
