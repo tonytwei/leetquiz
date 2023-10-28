@@ -1,0 +1,19 @@
+{
+  "name": "leetquiz",
+  "version": "1.0.0",
+  "description": "Web based DSA quiz app",
+  "main": "/server/server.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tonytwei/leetquiz.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tonytwei/leetquiz/issues"
+  },
+  "homepage": "https://github.com/tonytwei/leetquiz#readme"
+}

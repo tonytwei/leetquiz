@@ -1,22 +1,25 @@
-function loadQuestion(questionID, questionNumber) {
-    fetch(`../assets/questions/${questionID}.json`)
-        .then(response => response.json())
-        .then(data => {
-            displayDescription(data);
-            displayQuestion(data, questionNumber);
-        })
-        .catch(error => console.error(error))
+async function loadQuestion(questionID, questionNumber) {
+    try {
+        const response = await fetch(`../assets/questions/${questionID}.json`);
+        const data = await response.json();
+        displayDescription(data);
+        displayQuestion(data, questionNumber);
+    } catch (error) {
+        console.error(error);
+    }
 }
 
-function loadQuestionAPI(questionID, questionNumber) {
-    fetch(`https://raw.githubusercontent.com/tonytwei/leetquiz/main/client/public/assets/questions/0242.json`)
-        .then(response => response.json())
-        .then(data => {
-            displayDescription(data);
-            displayQuestion(data, questionNumber);
-        })
-        .catch(error => console.error(error))
+async function loadQuestionAPI(questionID, questionNumber) {
+    try {
+        const response = await fetch(`https://raw.githubusercontent.com/tonytwei/leetquiz/main/client/public/assets/questions/${questionID}.json`);
+        const data = await response.json();
+        displayDescription(data);
+        displayQuestion(data, questionNumber);
+    } catch (error) {
+        console.error(error);
+    }
 }
+
 
 function displayDescription(questionData) {
     document.querySelector(".question-header > h1").textContent = questionData.title;
@@ -100,18 +103,68 @@ function renderNextButton() {
     });
 }
 
+
+function grabSettings() {
+    const difficultySettings = document.querySelectorAll('input[name="difficulty"]:checked');
+    const selectedDifficulties = Array.from(difficultySettings).map(checkbox => checkbox.value);
+
+    const selectedSet = document.getElementById('set').value;
+    
+    const topicSettings = document.querySelectorAll('input[name="topics"]:checked');
+    let selectedTopics = Array.from(topicSettings).map(checkbox => checkbox.value);
+    if (selectedTopics.length == 0) {
+        selectedTopics = ['arrays', 'two-pointers', 'sliding-window', 'stack', 'binary-search', 'linked-list', 'trees', 'heap-priority-queue', 'backtracking', 'graphs', 'dynamic-programming', 'greedy'];
+    }
+
+    return {
+        difficulty: selectedDifficulties,
+        set: selectedSet,
+        topics: selectedTopics
+    };
+}
+
+function clearFilters() {
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]')
+    checkboxes.forEach(checkbox => {
+        checkbox.checked = false;
+    });
+    document.getElementById('set').value = 'all';
+}
+
+function update() {
+    const settings = grabSettings();
+    if (['all', 'custom'].includes(settings.set)) {
+        if ((settings.topics.length == 0) || (settings.topics.length == numTopics)) {
+            document.getElementById('set').value = 'all';
+        } else {
+            document.getElementById('set').value = 'custom';
+        }
+    }
+
+    console.log('Difficulty:', settings.difficulty);
+    console.log('Topics:', settings.topics);
+    console.log('Set:', document.getElementById('set').value);
+    console.log(settings.topics.length);
+}
+
 /* 
     questionNumber += 1;
     loadQuestion(questionID, questionNumber);
 */
-
+let numTopics = 12;
 let questionNumber = 0;
 let currentAnswer = 'a';
 // let questionID = "0217"
-let questionID = "0242"
+let questionID = "0242";
 loadQuestionAPI(questionID, questionNumber);
 
-document.addEventListener("DOMContentLoaded", function () {
-    const submitButton = document.getElementById("submit-answer");
-    submitButton.addEventListener("click", checkAnswer);
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+        checkbox.addEventListener("click", update);
+    });
+    document.getElementById("set").addEventListener('change', update);
+    document.getElementById("submit-answer").addEventListener("click", checkAnswer);
+    document.getElementById("clear-filters").addEventListener('click', clearFilters);
 });
