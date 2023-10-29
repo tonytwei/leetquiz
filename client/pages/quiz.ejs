@@ -9,6 +9,8 @@
         
         <script>
             let questionID = '<%= data.id %>';
+            let questionPartsCount = '<%= data.questions.length %>';
+            let questionPartAnswer = '<%= data.questions[0].answer %>';
         </script>
         <script src="/assets/quiz.js"></script>
         <link rel="stylesheet" href="/styles/common.css">
@@ -158,16 +160,23 @@
                                     <% for(var j=0; j<data.questions[0].options.length; j++) { %>
                                     <div class="radio-option">
                                         <input type="radio" id="answer-<%= j %>" name="answer" value="<%= j %>"> 
-                                        <label for="answer-<%= j %>"><%= data.questions[i].options[j] %></label>
+                                        <label for="answer-<%= j %>"><%= data.questions[0].options[j] %></label>
                                     </div>
                                     <% } %>
                                 </div>
                                 <div class="button-container">
                                     <button id="submit-answer" type="button" name="submit-answer">Submit</button>
-                                    <button class="hidden" id="next-question" type="button" name="next-question">Next</button>
+                                    <button class="hidden" id="next-question-part" type="button" name="next-question-part">Next</button>
+                                    <button class="hidden" id="next-question" type="button" name="next-question">Next Q</button>
+                                    <button id="show-questions" type="button" name="show-questions">Questions</button>
+                                </div>
+                                <div class="button-container">
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
     </body>
-</html>
+</html> 

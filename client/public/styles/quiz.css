@@ -211,12 +211,26 @@ input[type="radio"]:checked {
     border: 3px solid var(--accent-dark-blue);
 }
 
-#submit-answer, #next-question {
+.button-container {
+    display: grid;
+    grid-gap: 10px;
+    justify-content: start;
+}
+
+#submit-answer, #next-question-part, #next-question, #show-questions {
     width: 100px;
     background: white;
     border: 3px solid var(--text-a);
     border-radius: 5px;
     padding: 5px 10px; 
+}
+
+#submit-answer, #next-question-part, #next-question {
+    grid-row-start: 1;
+}
+
+#show-questions {
+    grid-row-start: 2;
 }
 
 .hidden {

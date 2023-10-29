@@ -1,9 +1,9 @@
-async function loadQuestion(questionID, questionNumber) {
+async function loadQuestion(questionID, questionPart) {
     try {
         const response = await fetch(`/assets/questions/${questionID}.json`);
         const data = await response.json();
         displayDescription(data);
-        displayQuestion(data, questionNumber);
+        displayQuestion(data, questionPart);
     } catch (error) {
         console.error(error);
     }
@@ -42,13 +42,13 @@ function displayDescription(questionData) {
     });
 }
 
-function displayQuestion(questionData, questionNumber) {
-    currentAnswer = questionData.questions[questionNumber].answer;
-    document.querySelector(".question-answer > p").textContent = questionData.questions[questionNumber].questionText;
+function displayQuestion(questionData, questionPart) {
+    questionPartAnswer = questionData.questions[questionPart].answer;
+    document.querySelector(".question-answer > p").textContent = questionData.questions[questionPart].questionText;
     
     radioContainer = document.querySelector(".radio-container");
     radioContainer.innerHTML = "";
-    questionData.questions[questionNumber].options.forEach((item, index) => {
+    questionData.questions[questionPart].options.forEach((item, index) => {
         let radioButton = document.createElement("input");
         radioButton.type = "radio";
         radioButton.name = "answer";
@@ -61,7 +61,6 @@ function displayQuestion(questionData, questionNumber) {
 
         let radioOption = document.createElement("div");
         radioOption.classList.add("radio-option");
-        radioOption.setAttribute('for', 'answer-3');
         radioOption.appendChild(radioButton);
         radioOption.appendChild(label);
 
@@ -72,23 +71,29 @@ function displayQuestion(questionData, questionNumber) {
 function checkAnswer() {
     let input = document.querySelector('input[name="answer"]:checked');
     let radioContainer = input.parentElement;
-    if (currentAnswer != input.value) {
+
+    if (questionPartAnswer != input.value) {
         radioContainer.classList.add("wrong-answer");
+        return;
+    }
+    radioContainer.classList.add("correct-answer");
+
+    questionPart += 1;
+    if (questionPart == questionPartsCount) {
+        renderNextQuestionButton();
     } else {
-        // correct condition
-        radioContainer.classList.add("correct-answer");
-        renderNextButton();
+        renderNextPartButton();
     }
 }
 
-function renderNextButton() {
-    let nextButton = document.getElementById("next-question");
+function renderNextQuestionButton() {
+    let nextQuestionButton = document.getElementById("next-question");
+    nextQuestionButton.classList.remove("hidden");
+}
+
+function renderNextPartButton() {
+    let nextButton = document.getElementById("next-question-part");
     nextButton.classList.remove("hidden");
-    nextButton.addEventListener("click", () => {
-        nextButton.classList.add("hidden");
-        questionNumber += 1;
-        loadQuestion(questionID, questionNumber);
-    });
 }
 
 
@@ -111,15 +116,7 @@ function grabSettings() {
     };
 }
 
-function clearFilters() {
-    const checkboxes = document.querySelectorAll('input[type="checkbox"]')
-    checkboxes.forEach(checkbox => {
-        checkbox.checked = false;
-    });
-    document.getElementById('set').value = 'all';
-}
-
-function update() {
+function updateSettings() {
     const settings = grabSettings();
     if (['all', 'custom'].includes(settings.set)) {
         if ((settings.topics.length == 0) || (settings.topics.length == numTopics)) {
@@ -135,19 +132,34 @@ function update() {
     console.log(settings.topics.length);
 }
 
-/* 
-    questionNumber += 1;
-    loadQuestion(questionID, questionNumber);
-*/
-let numTopics = 12;
-let questionNumber = 0;
-let currentAnswer = '0';
+function clearFilters() {
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]')
+    checkboxes.forEach(checkbox => {
+        checkbox.checked = false;
+    });
+    document.getElementById('set').value = 'all';
+}
+
+
+function nextQuestionPart() {
+    let nextButton = document.getElementById("next-question-part");
+    nextButton.classList.add("hidden");
+    loadQuestion(questionID, questionPart);
+}
+
+const numTopics = 12;
+
+console.log(questionID);
+let questionPart = 0;
+console.log(questionPartsCount);
+console.log(questionPartAnswer);
 
 document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
-        checkbox.addEventListener("click", update);
+        checkbox.addEventListener("click", updateSettings);
     });
     document.getElementById("clear-filters").addEventListener('click', clearFilters);
-    document.getElementById("set").addEventListener('change', update);
+    document.getElementById("set").addEventListener('change', updateSettings);
     document.getElementById("submit-answer").addEventListener("click", checkAnswer);
+    document.getElementById("next-question-part").addEventListener("click", nextQuestionPart);
 });
