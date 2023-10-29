@@ -2,15 +2,18 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>LeetQuiz - Quiz</title>
+        <title>LeetQuiz</title>
         <meta name="description" content="LeetQuiz: DSA Quiz App">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="icon" type="image/ico" href="../public/images/favicon.ico">
+        <link rel="icon" type="image/img" href="/images/logo-favicon.png">
         
-        <script src="../assets/quiz.js"></script>
-        <link rel="stylesheet" href="../public/styles/common.css">
-        <link rel="stylesheet" href="../public/styles/colors.css">
-        <link rel="stylesheet" href="../styles/quiz.css">
+        <script>
+            let questionID = '<%= data.id %>';
+        </script>
+        <script src="/assets/quiz.js"></script>
+        <link rel="stylesheet" href="/styles/common.css">
+        <link rel="stylesheet" href="/styles/colors.css">
+        <link rel="stylesheet" href="/styles/quiz.css">
         <link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Inconsolata&display=swap" rel="stylesheet">
     </head>
@@ -18,7 +21,7 @@
         <div class="container container-a">
             <header>
                 <div class="logo">
-                    <img src="../public/images/logo.png" alt="logo">
+                    <img src="/images/logo.png" alt="logo">
                     <h1>LeetQuiz</h1>
                 </div>
                 <div class="nav-bar">
@@ -28,10 +31,10 @@
                             <a href="/">HOME</a>
                         </l1>
                         <li>
-                            <a href="#">PRACTICE</a>
+                            <a href="">PRACTICE</a>
                         </li>
                         <l1>
-                            <a id="sign-up" class="button" href="#">SIGN UP</a>
+                            <a id="sign-up" class="button" href="/sign-up">SIGN UP</a>
                         </l1>
                     </ul>
                 </div>
@@ -123,47 +126,41 @@
                     </div>
                     <div class="quiz-right">
                         <div class="question-header">
-                            <h1>Title</h1>
-                            <h2>Difficulty</h2>
+                            <h1><%= data.title %></h1>
+                            <h2><%= data.difficulty %></h2>
                         </div>
                         <div class="quiz-body">
                             <div class="question-description">
-                                <p>Description</p>
+                                <p><%= data.description %></p>
                                 <div class="question-examples-container">
+                                    <% for(var i=0; i<data.examples.length; i++) { %>
                                     <div class="question-example">
-                                        <h3>Example 1: </h3>
-                                        <p>Input: </p>
-                                        <p>Output: </p>
+                                        <h3>Example <%= i+1 %>: </h3>
+                                        <p>Input: <%= data.examples[i].input %></p>
+                                        <p>Output: <%= data.examples[i].output %></p>
                                     </div>
+                                    <% } %>
                                 </div>
                                 <div class="question-constraints">
                                     <h3>Constraints:</h3>
                                     <ul>
+                                        <% for(var i=0; i<data.constraints.length; i++) { %>
                                         <li>
-                                            <p class="code">Constraint Example</p>
+                                            <p class="code"><%= data.constraints[i] %></p>
                                         </li>
+                                        <% } %>
                                     </ul>
                                 </div>
                             </div>
                             <div class="question-answer">
-                                <p>Question</p>
+                                <p><%= data.questions[0].questionText %></p>
                                 <div class="radio-container">
-                                    <div class="radio-option correct-answer" for="answer-3">
-                                        <input type="radio" id="answer-0" name="answer" value="0"> 
-                                        <label for="answer-0">0</label>
+                                    <% for(var j=0; j<data.questions[0].options.length; j++) { %>
+                                    <div class="radio-option">
+                                        <input type="radio" id="answer-<%= j %>" name="answer" value="<%= j %>"> 
+                                        <label for="answer-<%= j %>"><%= data.questions[i].options[j] %></label>
                                     </div>
-                                    <div class="radio-option wrong-answer" for="answer-3">
-                                        <input type="radio" id="answer-1" name="answer" value="1"> 
-                                        <label for="answer-1">1</label>
-                                    </div>
-                                    <div class="radio-option" for="answer-3">
-                                        <input type="radio" id="answer-2" name="answer" value="2"> 
-                                        <label for="answer-2">2</label>
-                                    </div>
-                                    <div class="radio-option" for="answer-3">
-                                        <input type="radio" id="answer-3" name="answer" value="3"> 
-                                        <label for="answer-3">3</label>
-                                    </div>
+                                    <% } %>
                                 </div>
                                 <div class="button-container">
                                     <button id="submit-answer" type="button" name="submit-answer">Submit</button>
@@ -172,8 +169,5 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
     </body>
 </html>
