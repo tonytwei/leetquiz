@@ -1,39 +1,38 @@
-const http = require('http');
-const fs = require('fs');
+const express = require('express');
+const path = require('path');
 
-const server = http.createServer((req, res) => {
-    console.log(req.url, req.method);
+const app = express();
 
-    // set header content type
-    res.setHeader('Content-Type', 'text/html');
+const port = 3005;
+app.listen(port);
 
-    let path = 'client';
-    switch (req.url) {
-        case '/':
-            path += '/public/index.html';
-            res.statusCode = 200;
-            break;
-        case '/quiz':
-            path += '/pages/quiz.html';
-            res.statusCode = 200;
-            break;
-        default:
-            // TODO: handle 404 error
-            res.statusCode = 404;
-            break;
-    }
-    
-    // send an html file
-    fs.readFile(path, (err, data) => {
-        if (err) {
-            // console.log(err);
-            res.end();
-        } else {
-            res.end(data);
-        }
-    });
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, '../client/pages'));
+
+app.get('/', (req, res) => {
+	const filePath = path.join(__dirname, '../client/pages/index.ejs');
+	res.render(filePath);
 });
 
-server.listen(3005, 'localhost', () => {
-    console.log('listening for requests on port 3005');
+// Serve static files from the 'public' directory
+app.use(express.static(path.join(__dirname, '../client/public')));
+
+let defaultQuestionID = "0217";
+
+app.get('/quiz', async (req, res) => {
+	try {
+		const filePath = path.join(__dirname, '../client/pages/quiz.ejs');
+		const data = require(`../client/public/assets/questions/${defaultQuestionID}.json`);
+		res.render(filePath, { data });
+	} catch (error) {
+		console.error(error);
+		res.status(500).send('Internal Server Error');
+	}
+});
+  
+
+// 404 page, must be at bottom
+app.use((req, res) => {
+	const filePath = path.join(__dirname, '../client/pages/404.ejs');
+	res.status(404).render(filePath);
 });
