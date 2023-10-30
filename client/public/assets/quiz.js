@@ -98,12 +98,12 @@ function renderNextPartButton() {
 
 
 function grabSettings() {
-    const difficultySettings = document.querySelectorAll('input[name="difficulty"]:checked');
+    const difficultySettings = document.querySelectorAll('.checkbox-container.original > input[name="difficulty"]:checked');
     const selectedDifficulties = Array.from(difficultySettings).map(checkbox => checkbox.value);
 
-    const selectedSet = document.getElementById('set').value;
+    const selectedSet = document.querySelector(".set.original").value;
     
-    const topicSettings = document.querySelectorAll('input[name="topics"]:checked');
+    const topicSettings = document.querySelectorAll('.checkbox-container.original > input[name="topics"]:checked');
     let selectedTopics = Array.from(topicSettings).map(checkbox => checkbox.value);
     if (selectedTopics.length == 0) {
         selectedTopics = ['arrays', 'two-pointers', 'sliding-window', 'stack', 'binary-search', 'linked-list', 'trees', 'heap-priority-queue', 'backtracking', 'graphs', 'dynamic-programming', 'greedy'];
@@ -120,15 +120,19 @@ function updateSettings() {
     const settings = grabSettings();
     if (['all', 'custom'].includes(settings.set)) {
         if ((settings.topics.length == 0) || (settings.topics.length == numTopics)) {
-            document.getElementById('set').value = 'all';
+            document.querySelectorAll('.set').forEach(set => {
+                set.value = 'all';
+            });
         } else {
-            document.getElementById('set').value = 'custom';
+            document.querySelectorAll('.set').forEach(set => {
+                set.value = 'custom';
+            });
         }
     }
 
     console.log('Difficulty:', settings.difficulty);
     console.log('Topics:', settings.topics);
-    console.log('Set:', document.getElementById('set').value);
+    console.log('Set:', settings.set);
     console.log(settings.topics.length);
 }
 
@@ -137,7 +141,9 @@ function clearFilters() {
     checkboxes.forEach(checkbox => {
         checkbox.checked = false;
     });
-    document.getElementById('set').value = 'all';
+    document.querySelectorAll('.set').forEach(set => {
+        set.value = 'all';
+    });
 }
 
 
@@ -145,6 +151,39 @@ function nextQuestionPart() {
     let nextButton = document.getElementById("next-question-part");
     nextButton.classList.add("hidden");
     loadQuestion(questionID, questionPart);
+}
+
+function linkSettings() {
+    const originalCheckboxes = document.querySelectorAll('.checkbox-container.original input[type="checkbox"]');
+    const copyCheckboxes = document.querySelectorAll('.checkbox-container.copy input[type="checkbox"]');
+    copyCheckboxes.forEach((checkbox, index) => {
+        checkbox.addEventListener("change", () => {
+            originalCheckboxes[index].checked = !originalCheckboxes[index].checked;
+        });
+        checkbox.addEventListener("change", updateSettings);
+    });
+    originalCheckboxes.forEach((checkbox, index) => {
+        checkbox.addEventListener("change", () => {
+            copyCheckboxes[index].checked = !copyCheckboxes[index].checked;
+        });
+        checkbox.addEventListener("change", updateSettings);
+    });
+
+    const originalSet = document.querySelector(".set.original");
+    const copySet = document.querySelector(".set.copy");
+    originalSet.addEventListener('change', () => {
+        copySet.value = originalSet.value;
+    });
+    copySet.addEventListener('change', () => {
+        originalSet.value = copySet.value;
+    });
+
+    document.querySelectorAll(".clear-filters").forEach((button) => {
+        button.addEventListener('click', clearFilters);
+    });
+    document.querySelectorAll("set").forEach((set) => {
+        set.addEventListener('change', updateSettings);
+    });
 }
 
 const numTopics = 12;
@@ -155,11 +194,7 @@ console.log(questionPartsCount);
 console.log(questionPartAnswer);
 
 document.addEventListener("DOMContentLoaded", () => {
-    document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
-        checkbox.addEventListener("click", updateSettings);
-    });
-    document.getElementById("clear-filters").addEventListener('click', clearFilters);
-    document.getElementById("set").addEventListener('change', updateSettings);
+    linkSettings();
     document.getElementById("submit-answer").addEventListener("click", checkAnswer);
     document.getElementById("next-question-part").addEventListener("click", nextQuestionPart);
 });

@@ -64,9 +64,20 @@ p {
     margin-bottom: 0px;
 }
 
+.leetquiz-text > h3 {
+    display: block;
+}
+
 .leetquiz-text > p {
     font-size: 1rem;
     color: var(--text-c);
+}
+
+@media all and (max-width: 480px) { 
+    .leetquiz-text > h3 {
+        display: none;
+        width: 0px;
+    }
 }
 
 #get-started {
@@ -76,7 +87,15 @@ p {
     margin-top: 30px;
 }
 
+@media all and (max-width: 890px) { 
+    #computer-graphic {
+        display: none;
+        width: 0px;;
+    }
+}
+
 #computer-graphic {
+    display: block;
     flex-direction: column;
     justify-content: center;
     max-width: 70%;
@@ -94,7 +113,7 @@ p {
     text-align: center;
     padding-left: 6%;
     padding-right: 6%;
-    padding-bottom: 40px;
+    padding: 0px 6%;
 }
 
 .companies-text-block {
@@ -116,6 +135,7 @@ p {
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    padding: 20px 0px;
 }
 
 .companies-img-block > img {
