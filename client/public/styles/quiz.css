@@ -295,10 +295,24 @@ input[type="radio"]:checked {
 }
 
 @media all and (max-width: 890px) {
+    .overlay {
+        top: -20px;
+        left: -20px;
+        width: calc(100% + 40px);
+        min-height: calc(100% + 40px);
+        height: max-content;
+        border-radius: 0px;
+    }
+
+    .quiz-container {
+        padding: 20px 20px;
+    }
+
     .quiz-window {
         flex-direction: column-reverse;
         align-items: center;
         row-gap: 20px;
+        width: 100%;
     }
 
     .quiz-left {
