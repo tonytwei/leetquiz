@@ -89,11 +89,14 @@ function checkAnswer() {
 function renderNextQuestionButton() {
     let nextQuestionButton = document.getElementById("next-question");
     nextQuestionButton.style.display = "block";
+    let nextButtonPart = document.getElementById("next-question-part");
+    nextButtonPart.style.display = "none";
 }
 
 function renderNextPartButton() {
-    let nextButton = document.getElementById("next-question-part");
-    nextButton.style.display = "block";
+    let nextButtonPart = document.getElementById("next-question-part");
+    console.log(nextButtonPart);
+    nextButtonPart.style.visibility = "visible";
 }
 
 
@@ -149,7 +152,7 @@ function clearFilters() {
 
 function nextQuestionPart() {
     let nextButton = document.getElementById("next-question-part");
-    nextButton.style.display = "none";
+    nextButton.style.visibility = "hidden";
     loadQuestion(questionID, questionPart);
 }
 

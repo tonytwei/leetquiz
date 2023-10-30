@@ -146,14 +146,13 @@
                                     <% } %>
                                 </div>
                                 <div class="button-container-container">
+                                    <button id="show-questions" type="button" name="show-questions">Questions</button>
+                                    <button id="show-settings" type="button" name="show-settings">Settings</button>
+                                    <button id="save-question" type="button" name="save-question">Save</button>
                                     <div class="button-container">
                                         <button id="submit-answer" type="button" name="submit-answer">Submit</button>
                                         <button id="next-question-part" type="button" name="next-question-part">Next</button>
                                         <button id="next-question" type="button" name="next-question">Next Q</button>
-                                    </div>
-                                    <div class="button-container">
-                                        <button id="show-questions" type="button" name="show-questions">Questions</button>
-                                        <button id="show-settings" type="button" name="show-settings">Settings</button>
                                     </div>
                                 </div>
                             </div>
@@ -228,16 +227,18 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="choose-set">
-                                    <h2>SET:</h2>
-                                    <select class="set copy" name="set">
-                                        <option value="all">All</option>
-                                        <option value="custom">Custom</option>
-                                        <option value="gdsc-arrays">GDSC: Arrays</option>
-                                    </select>
-                                </div>
-                                <div class="clear-filters">
-                                    <button id="clear-filters" type="button" name="clear-filters">CLEAR FILTERS</button>
+                                <div class="set-clear-filters">
+                                    <div class="choose-set">
+                                        <h2>SET:</h2>
+                                        <select class="set copy" name="set">
+                                            <option value="all">All</option>
+                                            <option value="custom">Custom</option>
+                                            <option value="gdsc-arrays">GDSC: Arrays</option>
+                                        </select>
+                                    </div>
+                                    <div class="clear-filters">
+                                        <button id="clear-filters" type="button" name="clear-filters">CLEAR FILTERS</button>
+                                    </div>
                                 </div>
                             </div>
                             <div class="questions-list">
