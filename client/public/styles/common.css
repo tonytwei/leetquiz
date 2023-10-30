@@ -80,7 +80,7 @@ a {
     display: none;
 }
 
-@media all and (max-width: 800px) {
+@media all and (max-width: 890px) {
     .nav-bar {
         display: none;
     }

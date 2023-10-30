@@ -88,12 +88,12 @@ function checkAnswer() {
 
 function renderNextQuestionButton() {
     let nextQuestionButton = document.getElementById("next-question");
-    nextQuestionButton.classList.remove("hidden");
+    nextQuestionButton.style.display = "block";
 }
 
 function renderNextPartButton() {
     let nextButton = document.getElementById("next-question-part");
-    nextButton.classList.remove("hidden");
+    nextButton.style.display = "block";
 }
 
 
@@ -149,7 +149,7 @@ function clearFilters() {
 
 function nextQuestionPart() {
     let nextButton = document.getElementById("next-question-part");
-    nextButton.classList.add("hidden");
+    nextButton.style.display = "none";
     loadQuestion(questionID, questionPart);
 }
 
@@ -186,6 +186,33 @@ function linkSettings() {
     });
 }
 
+function showQuestionsOverlay() {
+    const overlay = document.querySelector(".overlay");
+    overlay.style.display = "flex";
+
+    const overlayQuestions = document.querySelector(".questions-list");
+    overlayQuestions.style.display = "flex";
+}
+
+function showSettingsOverlay() {
+    const overlay = document.querySelector(".overlay");
+    overlay.style.display = "flex";
+
+    const overlaySettings = document.querySelector(".overlay-settings");
+    overlaySettings.style.display = "flex";
+}
+
+function closeOverlay() {
+    const overlay = document.querySelector(".overlay");
+    overlay.style.display = "none";
+
+    const overlayQuestions = document.querySelector(".questions-list");
+    overlayQuestions.style.display = "none";
+
+    const overlaySettings = document.querySelector(".overlay-settings");
+    overlaySettings.style.display = "none";
+}
+
 const numTopics = 12;
 
 console.log(questionID);
@@ -197,4 +224,8 @@ document.addEventListener("DOMContentLoaded", () => {
     linkSettings();
     document.getElementById("submit-answer").addEventListener("click", checkAnswer);
     document.getElementById("next-question-part").addEventListener("click", nextQuestionPart);
+    // next question
+    document.getElementById("show-questions").addEventListener("click", showQuestionsOverlay);
+    document.getElementById("show-settings").addEventListener("click", showSettingsOverlay);
+    document.getElementById("overlay-close").addEventListener("click", closeOverlay);
 });

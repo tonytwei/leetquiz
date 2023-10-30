@@ -145,11 +145,16 @@
                                     </div>
                                     <% } %>
                                 </div>
-                                <div class="button-container">
-                                    <button id="submit-answer" type="button" name="submit-answer">Submit</button>
-                                    <button class="hidden" id="next-question-part" type="button" name="next-question-part">Next</button>
-                                    <button class="hidden" id="next-question" type="button" name="next-question">Next Q</button>
-                                    <button id="show-questions" type="button" name="show-questions"></button>
+                                <div class="button-container-container">
+                                    <div class="button-container">
+                                        <button id="submit-answer" type="button" name="submit-answer">Submit</button>
+                                        <button id="next-question-part" type="button" name="next-question-part">Next</button>
+                                        <button id="next-question" type="button" name="next-question">Next Q</button>
+                                    </div>
+                                    <div class="button-container">
+                                        <button id="show-questions" type="button" name="show-questions">Questions</button>
+                                        <button id="show-settings" type="button" name="show-settings">Settings</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -234,6 +239,37 @@
                                 <div class="clear-filters">
                                     <button id="clear-filters" type="button" name="clear-filters">CLEAR FILTERS</button>
                                 </div>
+                            </div>
+                            <div class="questions-list">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Completed</th>
+                                            <th>Problem</th>
+                                            <th>Difficulty</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input type="checkbox" name="completed" value="1"></td>
+                                            <td>Two Sum</td>
+                                            <td>Easy</td>
+                                        </tr>
+                                        <tr>
+                                            <td><input type="checkbox" name="completed" value="2"></td>
+                                            <td>Longest Substring Without Repeating Characters</td>
+                                            <td>Medium</td>
+                                        </tr>
+                                        <tr>
+                                            <td><input type="checkbox" name="completed" value="3"></td>
+                                            <td>Median of Two Sorted Arrays</td>
+                                            <td>Hard</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="overlay-close">
+                                <button id="overlay-close" class="button">Close</button>
                             </div>
                         </div>
                     </div>
