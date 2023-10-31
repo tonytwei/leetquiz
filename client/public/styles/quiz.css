@@ -333,6 +333,10 @@ input[type="radio"]:checked {
 }
 
 @media all and (max-width: 550px) {
+    .logo > h1 {
+        visibility: hidden;
+    }
+
     .quiz-container {
         padding: 10px;
     }
