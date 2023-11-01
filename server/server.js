@@ -7,7 +7,7 @@ const app = express();
 
 // connect to mongodb
 const port = 3005;
-const dbURI = 'mongodb+srv://tony:wei@leetquiz.jyyqn6d.mongodb.net/quiz-app'; // modified dbURI
+const dbURI = 'REPLACE'; // modified dbURI
 mongoose.connect(dbURI)
 	.then((result) => app.listen(port))
 	.catch((err) => console.log(err));
