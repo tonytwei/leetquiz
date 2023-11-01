@@ -227,7 +227,7 @@ document.addEventListener("DOMContentLoaded", () => {
     linkSettings();
     document.getElementById("submit-answer").addEventListener("click", checkAnswer);
     document.getElementById("next-question-part").addEventListener("click", nextQuestionPart);
-    // next question
+    document.getElementById("next-question").addEventListener("click", showQuestionsOverlay);
     document.getElementById("show-questions").addEventListener("click", showQuestionsOverlay);
     document.getElementById("show-settings").addEventListener("click", showSettingsOverlay);
     document.getElementById("overlay-close").addEventListener("click", closeOverlay);

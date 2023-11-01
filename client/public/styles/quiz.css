@@ -147,7 +147,7 @@ select:focus {
     height: 100%;
     display: flex;
     flex-direction: column;
-    padding: 0px 10px 10px 10px;
+    padding: 0px 10px;
     gap: 8px;
 }
 
@@ -163,11 +163,11 @@ select:focus {
 
 .question-answer {
     width: 50%;
-    height: 100%;
+    min-height: 100%;
     display: flex;
     flex-direction: column;
-    row-gap: 9px;
-    padding: 0px 10px 10px 10px;
+    row-gap: 10px;
+    padding: 0px 10px;
 }
 
 .radio-container {
@@ -216,26 +216,50 @@ input[type="radio"]:checked {
 
 .button-container-container {
     display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
+    flex-direction: column;
     gap: 10px;
+    height: 100%;
+    justify-content: space-between;
 }
 
 .button-container {
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
     max-width: 100%;
     gap: 10px;
     justify-content: start;
+    align-items: center;
 }
 
-#submit-answer, #next-question-part, #next-question, #show-settings, #show-questions, #save-question {
-    width: 100px;
+.button-container-icons {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    gap: 10px;
+    justify-content: end;
+    align-items: center;
+}
+
+#show-questions, #show-settings, #save-question {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    min-width: max-content;
+    height: 35px;
     background: white;
     border: 3px solid var(--text-a);
     border-radius: 5px;
-    padding: 5px 10px;
+    padding: 0px 5px;
+}
+
+#submit-answer, #next-question-part, #next-question {
+    width: 100px;
+    height: 35px;
+    background: white;
+    border: 3px solid var(--text-a);
+    border-radius: 5px;
 }
 
 #next-question, #show-settings {
@@ -245,18 +269,6 @@ input[type="radio"]:checked {
 #next-question-part {
     display: block;
     visibility: hidden;
-}
-
-#submit-answer, #next-question-part, #next-question {
-    grid-row-start: 1;
-}
-
-#show-settings, #show-questions {
-    grid-row-start: 2;
-}
-
-.hidden {
-    display: none;
 }
 
 .overlay {
@@ -328,7 +340,7 @@ input[type="radio"]:checked {
     }
 
     #show-settings {
-        display: block;
+        display: flex;
     }
 }
 
@@ -354,8 +366,7 @@ input[type="radio"]:checked {
 
     .question-description {
         width: 100%;
-        padding-bottom: 0%;
-        padding: 0px
+        padding: 0px;
     }
 
     .question-constraints > ul > li {
@@ -393,6 +404,10 @@ input[type="radio"]:checked {
     .button-container-container {
         justify-content: center;
         align-items: center;
+    }
+    
+    .button-container-icons {
+        justify-content: center;
     }
 
     .overlay-settings > * {

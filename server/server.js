@@ -1,38 +1,78 @@
 const express = require('express');
 const path = require('path');
-
+const mongoose = require('mongoose');
+const Blog = require('../client/models/blog');
+const Question = require('../client/models/question');
 const app = express();
 
+// connect to mongodb
 const port = 3005;
-app.listen(port);
+const dbURI = 'mongodb+srv://tony:wei@leetquiz.jyyqn6d.mongodb.net/quiz-app'; // modified dbURI
+mongoose.connect(dbURI)
+	.then((result) => app.listen(port))
+	.catch((err) => console.log(err));
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '../client/pages'));
 
-app.get('/', (req, res) => {
-	const filePath = path.join(__dirname, '../client/pages/index.ejs');
-	res.render(filePath);
-});
-
-// Serve static files from the 'public' directory
 app.use(express.static(path.join(__dirname, '../client/public')));
 
-let defaultQuestionID = "0217";
+// question routes
+// TODO: remove later, temp 
+app.get('/add-question', (req, res) => {
+	const data = require(`../client/public/assets/questions/0242.json`);
+	const question = new Question(data);
 
+	question.save()
+		.then((result) => {
+			res.send(result);
+		})
+		.catch((err) => {
+			console.log(err);
+		});
+});
+
+app.get('/all-questions', (req, res) => {
+	Question.find()
+		.then((result) => {
+			res.send(result);
+		})
+		.catch((err) => {
+			console.log(err);
+		});
+});
+
+app.get('/quiz/:id',  (req, res) => {
+	const id = req.params.id;
+	console.log(id);
+	Question.findById(id)
+		.then((result) => {
+			const data = result;
+			res.render('quiz', { data })
+		})
+		.catch((err) => {
+			console.log(err);
+		});
+})
+
+
+// original routes
+app.get('/', (req, res) => {
+	res.render('index');
+});
+
+let defaultQuestionID = "0217";
 app.get('/quiz', async (req, res) => {
 	try {
-		const filePath = path.join(__dirname, '../client/pages/quiz.ejs');
 		const data = require(`../client/public/assets/questions/${defaultQuestionID}.json`);
-		res.render(filePath, { data });
+		res.render('quiz', { data });
 	} catch (error) {
 		console.error(error);
 		res.status(500).send('Internal Server Error');
 	}
 });
-  
 
 // 404 page, must be at bottom
 app.use((req, res) => {
-	const filePath = path.join(__dirname, '../client/pages/404.ejs');
-	res.status(404).render(filePath);
+	res.status(404).render('404');
 });
