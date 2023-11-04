@@ -1,8 +1,6 @@
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
-const Blog = require('../client/models/blog');
-const Question = require('../client/models/question');
 const app = express();
 require('dotenv').config();
 

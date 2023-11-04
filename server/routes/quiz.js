@@ -34,6 +34,7 @@ router.get('/get-questions', (req, res) => {
 
 
 // temp routes
+// TODO: del later
 router.get('/add-question', (req, res) => {
 	const data = require(`../client/public/assets/questions/0217.json`);
 	const question = new Question(data);
