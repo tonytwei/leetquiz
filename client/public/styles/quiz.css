@@ -419,6 +419,7 @@ input[type="radio"]:checked {
     display: none;
     background-color: var(--quiz-grey);
     border-radius: 5px;
+    min-width: min-content;
 }
 
 table {
@@ -426,7 +427,7 @@ table {
 }
 
 thead th {
-    padding: 10px;
+    padding: 10px 15px;
     text-align: center;
     border-bottom: 3px solid #333;
 }
@@ -448,11 +449,9 @@ tbody tr:hover {
 }
 
 tr > td:first-child {
+    display: flex;
     text-align: center;
-}
-
-td {
-    padding: 10px;
+    justify-content: center;
 }
 
 td:first-child > input {
@@ -461,4 +460,12 @@ td:first-child > input {
 
 td:last-child {
     text-align: center;
+}
+
+td {
+    padding: 10px;
+}
+
+.completed {
+    background-color: var(--background-lime);
 }

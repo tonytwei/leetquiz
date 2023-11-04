@@ -247,6 +247,9 @@ async function questionsOverlay() {
 
                 
                 const tr = document.createElement("tr");
+                if (completedQuestionIDs[question.id]) {
+                    tr.classList.add("completed");
+                }
                 tr.appendChild(tdCompleted);
                 tr.appendChild(tdTitle);
                 tr.appendChild(tdDifficulty);
@@ -258,8 +261,14 @@ async function questionsOverlay() {
     
     // allow toggeling of completeness
     document.querySelectorAll('input[name="completed"]').forEach(input => {
-        input.addEventListener("click", () => {
+        input.addEventListener("change", (event) => {
             toggleQuestionCompleted(input.value, input.checked);
+            const tr = event.target.closest('tr');
+            if (event.target.checked) {
+                tr.classList.add('completed');
+            } else {
+                tr.classList.remove('completed');
+            }
         });
     });
 
