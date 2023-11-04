@@ -95,21 +95,23 @@ function renderNextQuestionButton() {
 
 function renderNextPartButton() {
     let nextButtonPart = document.getElementById("next-question-part");
-    console.log(nextButtonPart);
     nextButtonPart.style.visibility = "visible";
 }
 
 
-function grabSettings() {
+function getSettings() {
     const difficultySettings = document.querySelectorAll('.checkbox-container.original > input[name="difficulty"]:checked');
-    const selectedDifficulties = Array.from(difficultySettings).map(checkbox => checkbox.value);
+    let selectedDifficulties = Array.from(difficultySettings).map(checkbox => checkbox.value);
+    if (selectedDifficulties.length == 0) {
+        selectedDifficulties = ['Easy', 'Medium', 'Hard'];
+    }
 
     const selectedSet = document.querySelector(".set.original").value;
     
     const topicSettings = document.querySelectorAll('.checkbox-container.original > input[name="topics"]:checked');
     let selectedTopics = Array.from(topicSettings).map(checkbox => checkbox.value);
     if (selectedTopics.length == 0) {
-        selectedTopics = ['arrays', 'two-pointers', 'sliding-window', 'stack', 'binary-search', 'linked-list', 'trees', 'heap-priority-queue', 'backtracking', 'graphs', 'dynamic-programming', 'greedy'];
+        selectedTopics = ['Arrays', 'Two-Pointers', 'Sliding-Window', 'Stack', 'Binary-Search', 'Linked-List', 'Trees', 'Heap', 'Backtracking', 'Graphs', 'DP', 'Greedy'];
     }
 
     return {
@@ -119,8 +121,8 @@ function grabSettings() {
     };
 }
 
-function updateSettings() {
-    const settings = grabSettings();
+function updateSet() {
+    const settings = getSettings();
     if (['all', 'custom'].includes(settings.set)) {
         if ((settings.topics.length == 0) || (settings.topics.length == numTopics)) {
             document.querySelectorAll('.set').forEach(set => {
@@ -132,11 +134,6 @@ function updateSettings() {
             });
         }
     }
-
-    console.log('Difficulty:', settings.difficulty);
-    console.log('Topics:', settings.topics);
-    console.log('Set:', settings.set);
-    console.log(settings.topics.length);
 }
 
 function clearFilters() {
@@ -163,13 +160,13 @@ function linkSettings() {
         checkbox.addEventListener("change", () => {
             originalCheckboxes[index].checked = !originalCheckboxes[index].checked;
         });
-        checkbox.addEventListener("change", updateSettings);
+        checkbox.addEventListener("change", updateSet);
     });
     originalCheckboxes.forEach((checkbox, index) => {
         checkbox.addEventListener("change", () => {
             copyCheckboxes[index].checked = !copyCheckboxes[index].checked;
         });
-        checkbox.addEventListener("change", updateSettings);
+        checkbox.addEventListener("change", updateSet);
     });
 
     const originalSet = document.querySelector(".set.original");
@@ -185,14 +182,90 @@ function linkSettings() {
         button.addEventListener('click', clearFilters);
     });
     document.querySelectorAll("set").forEach((set) => {
-        set.addEventListener('change', updateSettings);
+        set.addEventListener('change', updateSet);
     });
 }
 
-function showQuestionsOverlay() {
+// storing completed question using cookies
+function setQuestionCompleted(questionID) {
+    let json = localStorage.getItem('completedQuestionIDs');
+    let completedQuestionIDs = {};
+    if (json) {
+        completedQuestionIDs = JSON.parse(json);
+    }
+    completedQuestionIDs[questionID] = true;
+    localStorage.setItem('completedQuestionIDs', JSON.stringify(completedQuestionIDs));
+}
+
+function toggleQuestionCompleted(questionID, completedBool) {
+    let json = localStorage.getItem('completedQuestionIDs');
+    let completedQuestionIDs = {};
+    if (json) {
+        completedQuestionIDs = JSON.parse(json);
+    }
+    completedQuestionIDs[questionID] = completedBool;
+    localStorage.setItem('completedQuestionIDs', JSON.stringify(completedQuestionIDs));
+}
+
+async function questionsOverlay() {
+    // grab cookie for completed questions
+    let json = localStorage.getItem('completedQuestionIDs');
+    let completedQuestionIDs = {};
+    if (json) {
+        completedQuestionIDs = JSON.parse(json);
+    }
+
+    // grab question settings
+    const questionData = getSettings();
+    
+    // query database for questions
+    const difficulty = questionData.difficulty.join(',');
+    const topics = questionData.topics.join(',');
+    const set = questionData.set;
+    const url = `/quiz/get-questions?difficulty=${difficulty}&topics=${topics}&set=${set}`;
+    await fetch(url)
+        .then((response) => {
+            return response.json();
+        })
+        .then((data) => {
+            const tbody = document.querySelector("tbody");
+            tbody.textContent = "";
+            data.forEach((question) => {
+                const tdCompleted = document.createElement("td");
+                const completedCheckbox = document.createElement("input");
+                completedCheckbox.type = "checkbox";
+                completedCheckbox.name = "completed";
+                completedCheckbox.value = question.id;
+                completedCheckbox.checked = completedQuestionIDs[question.id];
+                tdCompleted.appendChild(completedCheckbox);
+
+                const tdTitle = document.createElement("td");
+                tdTitle.textContent = question.title;
+
+                const tdDifficulty = document.createElement("td");
+                tdDifficulty.textContent = question.difficulty;
+
+                
+                const tr = document.createElement("tr");
+                tr.appendChild(tdCompleted);
+                tr.appendChild(tdTitle);
+                tr.appendChild(tdDifficulty);
+                
+                tbody.appendChild(tr);
+            });
+        })
+        .catch((err) => console.log(err));
+    
+    // allow toggeling of completeness
+    document.querySelectorAll('input[name="completed"]').forEach(input => {
+        input.addEventListener("click", () => {
+            toggleQuestionCompleted(input.value, input.checked);
+        });
+    });
+
+    // display overlay
     const overlay = document.querySelector(".overlay");
     overlay.style.display = "flex";
-
     const overlayQuestions = document.querySelector(".questions-list");
     overlayQuestions.style.display = "flex";
 }
@@ -217,18 +290,22 @@ function closeOverlay() {
 }
 
 const numTopics = 12;
-
 console.log(questionID);
 let questionPart = 0;
 console.log(questionPartsCount);
 console.log(questionPartAnswer);
+console.log("end of boiler plate variables");
 
 document.addEventListener("DOMContentLoaded", () => {
     linkSettings();
     document.getElementById("submit-answer").addEventListener("click", checkAnswer);
     document.getElementById("next-question-part").addEventListener("click", nextQuestionPart);
-    document.getElementById("next-question").addEventListener("click", showQuestionsOverlay);
-    document.getElementById("show-questions").addEventListener("click", showQuestionsOverlay);
+    document.getElementById("next-question").addEventListener("click", () => {
+        setQuestionCompleted(questionID);
+        questionsOverlay();
+    });
+    
+    document.getElementById("show-questions").addEventListener("click", questionsOverlay);
     document.getElementById("show-settings").addEventListener("click", showSettingsOverlay);
     document.getElementById("overlay-close").addEventListener("click", closeOverlay);
 });
