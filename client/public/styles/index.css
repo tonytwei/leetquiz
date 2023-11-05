@@ -50,7 +50,7 @@ p {
     width: 100%;
 }
 
-.leetquiz-text {
+.algoquiz-text {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -58,23 +58,23 @@ p {
 }
 
 
-.leetquiz-text > h1 {
+.algoquiz-text > h1 {
     font-size: 4rem;
     color: var(--text-a);
     margin-bottom: 0px;
 }
 
-.leetquiz-text > h3 {
+.algoquiz-text > h3 {
     display: block;
 }
 
-.leetquiz-text > p {
+.algoquiz-text > p {
     font-size: 1rem;
     color: var(--text-c);
 }
 
 @media all and (max-width: 480px) { 
-    .leetquiz-text > h3 {
+    .algoquiz-text > h3 {
         display: none;
         width: 0px;
     }
