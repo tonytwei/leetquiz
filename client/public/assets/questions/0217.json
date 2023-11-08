@@ -1,70 +1,38 @@
 {
-  "id": "0217",
+  "id": "217",
   "title": "217. Contains Duplicate",
   "difficulty": "Easy",
   "topics": [
-    "Arrays"
+	"Arrays"
+  ],
+  "sets" : [
+	"GDSC: Arrays"
   ],
   "description": "Given an integer array 'nums', return 'true' if any value appears at least twice in the array, return 'false' if every element is distinct",
   "examples": [
-    {
-      "input": "nums = [1,2,3,1]",
-      "output": "true"
-    },
-    {
-      "input": "nums = [1,2,3,4]",
-      "output": "false"
-    }
+	{
+	  "input": "nums = [1,2,3,1]",
+	  "output": "true"
+	},
+	{
+	  "input": "nums = [1,2,3,4]",
+	  "output": "false"
+	}
   ],
   "constraints": [
-    "1 <= nums.length <= 10^5",
-    "-10^9 <= nums[i] <= 10^9"
+	"1 <= nums.length <= 10^5",
+	"-10^9 <= nums[i] <= 10^9"
   ],
   "questions": [
-    {
-      "questionText": "How many possible pairs of elements are there in an array of size n?",
-      "answer": "2",
-      "options": ["log n","n","n^2","2^n"]
-    },
-    {
-      "questionText": "What is the time complexity of a brute force approach, where you compare every possible pair in the array to check if there are any duplicates?",
-      "answer" : "0",
-      "options": [
-        "O(n^2)",
-        "O(n)",
-        "O(log n)",
-        "O(1)"
-      ]
-    },
-    {
-      "questionText": "What data structure can you use to optimize the approach for checking if there are any duplicate elements in the array?",
-      "answer" : "0",
-      "options": [
-        "Hash Table",
-        "Array",
-        "Binary Search Tree",
-        "Linked List"
-      ]
-    },
-    {
-      "questionText": "How can a HashSet be used to efficiently check for duplicates in the array?",
-      "answer" : "0",
-      "options": [
-        "Insert each element into the HashSet and check if it already exists",
-        "Use two pointers to compare elements",
-        "Sort the array and check for adjacent duplicates",
-        "Use a stack to keep track of elements"
-      ]
-    },
-    {
-      "questionText": "What is the time and space complexity of the solution using a hashmap?",
-      "answer" : "0",
-      "options": [
-        "Time: O(n), Space: O(n)",
-        "Time: O(n), Space: O(1)",
-        "Time: O(n^2), Space: O(1)",
-        "Time: O(log n), Space: O(log n)"
-      ]
-    }
+	{
+	  "questionText": "Question 1",
+	  "answer": "0",
+	  "options": ["0","1","2","3"]
+	},
+	{
+	  "questionText": "Question 2",
+	  "answer": "0",
+	  "options": ["0","1","2","3"]
+	}
   ]
 }

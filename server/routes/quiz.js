@@ -1,35 +1,59 @@
 const express = require('express');
 const router = express.Router();
-const Question = require('../../client/models/question'); // Assuming your model is in a 'models' folder
+const Question = require('../../client/models/question');
 
-let defaultQuestionID = "0242";
 router.get('/', async (req, res) => {
-	try {
-		const data = require(`../../client/public/assets/questions/${defaultQuestionID}.json`);
-		res.render('quiz', { data });
-	} catch (error) {
-		console.error(error);
-		res.status(500).send('Internal Server Error');
-	}
+	const defaultQuestionID = "242";
+	Question.find({ id: defaultQuestionID })
+		.exec()
+		.then((result) => {
+			let data = result[0];
+			res.render('quiz', { data });
+		})
+		.catch((err) => {
+			console.log(err);
+			res.status(500).send('Internal Server Error');
+		});
 });
 
-router.get('/get-questions', (req, res) => {
-    const difficulty = req.query.difficulty.split(','); // Split the comma-separated values into an array
-    const topics = req.query.topics.split(','); // Split the comma-separated values into an array
-    const set = req.query.set;
+router.get('/filter-questions', (req, res) => {
+	const difficulty = req.query.difficulty.split(',');
+	const topics = req.query.topics.split(',');
+	const set = req.query.set;
   
-    Question.find({
-        difficulty: { $in: difficulty },
-        topics: { $in: topics}
-    })
-        .select('id title difficulty')
-        .exec()
-        .then((result) => {
-            res.send(result);
-        })
-        .catch((err) => {
-            console.log(err);
-        });
+	let filter = {
+		difficulty: { $in: difficulty },
+		topics: { $in: topics}
+	};
+
+	if (set && set !== 'all' && set !== 'custom') {
+		filter.sets = { $in: [set]};
+	}
+
+	Question.find(filter)
+		.select('id title difficulty')
+		.exec()
+		.then((result) => {
+			const order = ['Easy', 'Medium', 'Hard'];
+            result.sort((a, b) => order.indexOf(a.difficulty) - order.indexOf(b.difficulty));
+			res.send(result);
+		})
+		.catch((err) => {
+			console.log(err);
+		});
+});
+
+router.get('/get-question', (req, res) => {
+	const questionID = req.query.id;
+	Question.find({ id: questionID })
+		.exec()
+		.then((data) => {
+			res.send(data[0]);
+		})
+		.catch((err) => {
+			console.log(err);
+			res.status(500).send('Internal Server Error');
+		});
 });
 
 

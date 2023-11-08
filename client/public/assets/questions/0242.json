@@ -1,11 +1,12 @@
 {
-    "id": "0242",
+    "id": "242",
     "title": "242. Valid Anagram",
     "difficulty": "Easy",
     "topics": [
       "Arrays",
-      "Two-Pointers"
+      "Two Pointers"
     ],
+    "sets" : [],
     "description": "Given two strings s and t, return true if t is an anagram of s, and false otherwise.\n\nAn Anagram is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once.",
     "examples": [
       {
@@ -23,54 +24,14 @@
     ],
     "questions": [
       {
-        "questionText": "What is the problem statement for this question?",
+        "questionText": "Question 1",
         "answer": "0",
-        "options": [
-          "Check if two strings are equal",
-          "Check if one string is an anagram of the other",
-          "Reverse a string",
-          "Count the number of vowels in a string"
-        ]
+        "options": ["0","1","2","3"]
       },
       {
-        "questionText": "What is an anagram?",
-        "answer": "1",
-        "options": [
-          "A palindrome",
-          "A word or phrase formed by rearranging the letters of another word or phrase",
-          "A synonym",
-          "A homophone"
-        ]
-      },
-      {
-        "questionText": "What is the time complexity of checking if two strings are anagrams?",
+        "questionText": "Question 2",
         "answer": "0",
-        "options": [
-          "O(n)",
-          "O(log n)",
-          "O(n^2)",
-          "O(1)"
-        ]
-      },
-      {
-        "questionText": "What data structure can be used to efficiently check if two strings are anagrams?",
-        "answer": "0",
-        "options": [
-          "Array",
-          "Hash Table",
-          "Binary Search Tree",
-          "Stack"
-        ]
-      },
-      {
-        "questionText": "What is the time and space complexity of a solution using a hash table to check if two strings are anagrams?",
-        "answer": "0",
-        "options": [
-          "Time: O(n), Space: O(n)",
-          "Time: O(n), Space: O(1)",
-          "Time: O(n^2), Space: O(1)",
-          "Time: O(log n), Space: O(log n)"
-        ]
+        "options": ["0","1","2","3"]
       }
     ]
   }

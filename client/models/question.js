@@ -9,6 +9,10 @@ const exampleSchema = new Schema({
     output: {
         type: String,
         required: true
+    },
+    explanation: {
+        type: String,
+        required: false
     }
 });
 
@@ -40,12 +44,16 @@ const questionSchema = new Schema({
         type: String,
         required: true
     },
-    description: {
-        type: String,
-        required: true
-    },
     topics: {
         type: [String],
+        required: true
+    },
+    sets: {
+        type: [String],
+        required: false
+    },
+    description: {
+        type: String,
         required: true
     },
     examples: {

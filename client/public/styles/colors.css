@@ -4,8 +4,8 @@
     --background-lime: #396d78;
     --accent-lime: #55d6be;
     --accent-dark-lime: #40a190;
-    --accent-red: #D6556D; /* This is a light red color */
-    --accent-dark-red: #A14051; /* This is a darker shade of red */
+    --accent-red: #D6556D;
+    --accent-dark-red: #A14051;
     --accent-blue: #4355bc;
     --accent-dark-blue: #4355bc;
     --text-a: #ccd6f6;
@@ -16,4 +16,8 @@
     --light-grey: #2e343b;
     --dark-grey: #222222;
     --quiz-grey: #5f5f5f;
+
+    --quiz-easy: #89ff8d;
+    --quiz-medium: #ffd23e;
+    --quiz-hard: #F44336;
 }
