@@ -5,11 +5,11 @@ const app = express();
 require('dotenv').config();
 
 // connect to mongodb
-const port = process.env.PORT || 3005;
+const port = process.env.PORT;
 const dbURI = process.env.DB_URI;
 mongoose.connect(dbURI)
 	.then((result) => {
-		app.listen(port)
+		app.listen(port);
 		console.log("Connected to db and listening on port " + port);
 	})
 	.catch((err) => console.log(err));
@@ -27,7 +27,7 @@ app.get('/', (req, res) => {
 	res.render('index');
 });
 
-// 404 page, must be at bottom
+// 404 must be at bottom
 app.use((req, res) => {
 	res.status(404).render('404');
 });

@@ -20,13 +20,13 @@ header {
     width: 100%;
     height: max-content;
     color: white;
-    padding: 55px 0px 55px 0px;
+    padding: 35px 0px;
 }
 
 .quiz-window {
     display: flex;
     flex-direction: row;
-    column-gap: 50px;
+    column-gap: 30px;
     width: 85%;
     height: 70%;
 }
@@ -44,8 +44,9 @@ header {
     border-radius: 5px; 
     display: flex;
     flex-direction: column;
-    row-gap: 15px;
-    padding: 20px 20px 25px 20px
+    row-gap: 10px;
+    padding: 20px 20px 25px 20px;
+    /*top right bottom left*/
 }
 
 h2 {
@@ -125,6 +126,10 @@ select:focus {
 
 .question-header > h1 {
     font-size: 2em;
+}
+
+.question-header > h2 {
+    color: var(--quiz-easy);
 }
 
 .quiz-body {

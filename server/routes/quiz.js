@@ -3,6 +3,7 @@ const router = express.Router();
 const Question = require('../../client/models/question');
 
 router.get('/', async (req, res) => {
+	// default question rendered server side
 	const defaultQuestionID = "242";
 	Question.find({ id: defaultQuestionID })
 		.exec()
@@ -25,7 +26,6 @@ router.get('/filter-questions', (req, res) => {
 		difficulty: { $in: difficulty },
 		topics: { $in: topics}
 	};
-
 	if (set && set !== 'all' && set !== 'custom') {
 		filter.sets = { $in: [set]};
 	}
@@ -59,19 +59,6 @@ router.get('/get-question', (req, res) => {
 
 // temp routes
 // TODO: del later
-router.get('/add-question', (req, res) => {
-	const data = require(`../client/public/assets/questions/0217.json`);
-	const question = new Question(data);
-
-	question.save()
-		.then((result) => {
-			res.send(result);
-		})
-		.catch((err) => {
-			console.log(err);
-		});
-});
-
 router.get('/all-questions', (req, res) => {
 	Question.find()
 		.then((result) => {

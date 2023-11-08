@@ -1,4 +1,4 @@
-async function loadQuestion(questionID, questionPart) {
+async function loadQuestion(questionID) {
     const url = `/quiz/get-question?id=${questionID}`;
     await fetch(url)
         .then((response) => {
@@ -7,13 +7,13 @@ async function loadQuestion(questionID, questionPart) {
         .then((data) => {
             questionPartsCount = data.questions.length;
             questionPartAnswer = data.questions[questionPart].answer;
-            displayDescription(data);
-            displayQuestion(data, questionPart);
+            displayDescription();
+            displayQuestionPart(0);
             })
         .catch((err) => console.log(err));
 }
 
-function displayDescription(questionData) {
+function displayDescription() {
     const difficulty_color_map = {
         "Easy": "var(--quiz-easy)",
         "Medium": "var(--quiz-medium)",
@@ -33,10 +33,10 @@ function displayDescription(questionData) {
         let example = document.createElement("div");
         example.classList.add("question-example");
         example.appendChild(document.createElement("h3")).textContent = `Example ${examplesCount}:`;
-        examplesCount += 1;
         example.appendChild(document.createElement("p")).textContent = `Input: ${element.input}`;
         example.appendChild(document.createElement("p")).textContent = `Output: ${element.output}`;
         questionExamplesContainer.appendChild(example);
+        examplesCount += 1;
     });
 
     // display constraints
@@ -49,12 +49,14 @@ function displayDescription(questionData) {
 
         let constraint = document.createElement("li");
         constraint.appendChild(para);
+
         questionConstraintsList.appendChild(constraint);
     });
 }
 
-function displayQuestion(questionData, questionPart) {
+function displayQuestionPart(questionPart) {
     questionPartAnswer = questionData.questions[questionPart].answer;
+
     document.querySelector(".question-answer > p").textContent = questionData.questions[questionPart].questionText;
     
     radioContainer = document.querySelector(".radio-container");
@@ -63,8 +65,8 @@ function displayQuestion(questionData, questionPart) {
         let radioButton = document.createElement("input");
         radioButton.type = "radio";
         radioButton.name = "answer";
-        radioButton.value = index;
         radioButton.id = `answer-${index}`;
+        radioButton.value = index;
 
         let label = document.createElement("label");
         label.htmlFor = `answer-${index}`;
@@ -86,7 +88,6 @@ function checkAnswer() {
     }
 
     let radioContainer = input.parentElement;
-
     if (questionPartAnswer != input.value) {
         radioContainer.classList.add("wrong-answer");
         return;
@@ -104,6 +105,7 @@ function checkAnswer() {
 function renderNextQuestionButton() {
     let nextQuestionButton = document.getElementById("next-question");
     nextQuestionButton.style.display = "block";
+    
     let nextButtonPart = document.getElementById("next-question-part");
     nextButtonPart.style.display = "none";
 }
@@ -119,8 +121,6 @@ function getSettings() {
     if (selectedDifficulties.length == 0) {
         selectedDifficulties = ['Easy', 'Medium', 'Hard'];
     }
-
-    const selectedSet = document.querySelector(".set.original").value;
     
     const topicSettings = document.querySelectorAll('.checkbox-container.original > input[name="topics"]:checked');
     let selectedTopics = Array.from(topicSettings).map(checkbox => checkbox.value);
@@ -128,25 +128,28 @@ function getSettings() {
         selectedTopics = ['Arrays', 'Two-Pointers', 'Sliding-Window', 'Stack', 'Binary-Search', 'Linked-List', 'Trees', 'Heap', 'Backtracking', 'Graphs', 'DP', 'Greedy'];
     }
 
+    const selectedSet = document.querySelector(".set.original").value;
+
     return {
         difficulty: selectedDifficulties,
-        set: selectedSet,
-        topics: selectedTopics
+        topics: selectedTopics,
+        set: selectedSet
     };
 }
 
 function updateSet() {
     const settings = getSettings();
-    if (['all', 'custom'].includes(settings.set)) {
-        if ((settings.topics.length == 0) || (settings.topics.length == numTopics)) {
-            document.querySelectorAll('.set').forEach(set => {
-                set.value = 'all';
-            });
-        } else {
-            document.querySelectorAll('.set').forEach(set => {
-                set.value = 'custom';
-            });
-        }
+    if (!['all', 'custom'].includes(settings.set)) {
+        return;
+    }
+    if ((settings.topics.length == 0) || (settings.topics.length == numTopics)) {
+        document.querySelectorAll('.set').forEach(set => {
+            set.value = 'all';
+        });
+    } else {
+        document.querySelectorAll('.set').forEach(set => {
+            set.value = 'custom';
+        });
     }
 }
 
@@ -160,13 +163,13 @@ function clearFilters() {
     });
 }
 
-
 function nextQuestionPart() {
     let nextButton = document.getElementById("next-question-part");
     nextButton.style.visibility = "hidden";
-    loadQuestion(questionID, questionPart);
+    displayQuestionPart(questionPart);
 }
 
+// links two settings components together
 function linkSettings() {
     const originalCheckboxes = document.querySelectorAll('.checkbox-container.original input[type="checkbox"]');
     const copyCheckboxes = document.querySelectorAll('.checkbox-container.copy input[type="checkbox"]');
@@ -200,7 +203,7 @@ function linkSettings() {
     });
 }
 
-// storing completed question using cookies
+// stores completed question data using cookies
 function setQuestionCompleted(questionID) {
     let json = localStorage.getItem('completedQuestionIDs');
     let completedQuestionIDs = {};
@@ -221,19 +224,14 @@ function toggleQuestionCompleted(questionID, completedBool) {
     localStorage.setItem('completedQuestionIDs', JSON.stringify(completedQuestionIDs));
 }
 
-async function questionsOverlay() {
-    // grab cookie for completed questions
+async function showQuestionsOverlay() {
     let json = localStorage.getItem('completedQuestionIDs');
     let completedQuestionIDs = {};
     if (json) {
         completedQuestionIDs = JSON.parse(json);
     }
 
-    // grab question settings
     const questionData = getSettings();
-    
-    // query database for questions
-    const difficulty = questionData.difficulty;
     const topics_map = {
         "Arrays": "Arrays",
         "Two-Pointers": "Two Pointers",
@@ -249,7 +247,9 @@ async function questionsOverlay() {
         "Greedy": "Greedy"
     };
     const topics = questionData.topics.map(topic => topics_map[topic]).join(',');
+    const difficulty = questionData.difficulty;
     const set = questionData.set;
+
     const url = `/quiz/filter-questions?difficulty=${difficulty}&topics=${topics}&set=${set}`;
     await fetch(url)
         .then((response) => {
@@ -261,15 +261,17 @@ async function questionsOverlay() {
                 "Medium": "var(--quiz-medium)",
                 "Hard": "var(--quiz-hard)"
             }
+
             const tbody = document.querySelector("tbody");
             tbody.textContent = "";
             data.forEach((question) => {
-                const tdCompleted = document.createElement("td");
                 const completedCheckbox = document.createElement("input");
                 completedCheckbox.type = "checkbox";
                 completedCheckbox.name = "completed";
                 completedCheckbox.value = question.id;
                 completedCheckbox.checked = completedQuestionIDs[question.id];
+
+                const tdCompleted = document.createElement("td");
                 tdCompleted.appendChild(completedCheckbox);
 
                 const tdTitle = document.createElement("td");
@@ -277,7 +279,7 @@ async function questionsOverlay() {
                 tdTitle.addEventListener("click", () => {
                     questionID = question.id;
                     questionPart = 0;
-                    loadQuestion(question.id, questionPart);
+                    loadQuestion(question.id);
                     resetNextButtons();
                     closeOverlay();
                 });
@@ -299,7 +301,7 @@ async function questionsOverlay() {
         })
         .catch((err) => console.log(err));
     
-    // allow toggeling of completeness
+    // toggle question completed
     document.querySelectorAll('input[name="completed"]').forEach(input => {
         input.addEventListener("change", (event) => {
             toggleQuestionCompleted(input.value, input.checked);
@@ -315,6 +317,7 @@ async function questionsOverlay() {
     // display overlay
     const overlay = document.querySelector(".overlay");
     overlay.style.display = "flex";
+
     const overlayQuestions = document.querySelector(".questions-list");
     overlayQuestions.style.display = "flex";
 }
@@ -346,11 +349,14 @@ function closeOverlay() {
 }
 
 const numTopics = 12;
-console.log("questionID: " + questionID);
 let questionPart = 0;
-console.log("questionPartsCount: " + questionPartsCount);
-console.log("questionPartAnswer: " + questionPartAnswer);
-console.log("end of boiler plate variables");
+// questionID
+// questionPartsCount
+// questionPartAnswer
+// questionDataRaw
+
+questionDataRaw = questionDataRaw.replace(/&#34;/g, '\"');
+let questionData = JSON.parse(questionDataRaw);
 
 document.addEventListener("DOMContentLoaded", () => {
     linkSettings();
@@ -358,10 +364,9 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("next-question-part").addEventListener("click", nextQuestionPart);
     document.getElementById("next-question").addEventListener("click", () => {
         setQuestionCompleted(questionID);
-        questionsOverlay();
+        showQuestionsOverlay();
     });
-    
-    document.getElementById("show-questions").addEventListener("click", questionsOverlay);
+    document.getElementById("show-questions").addEventListener("click", showQuestionsOverlay);
     document.getElementById("show-settings").addEventListener("click", showSettingsOverlay);
     document.getElementById("overlay-close").addEventListener("click", closeOverlay);
 });

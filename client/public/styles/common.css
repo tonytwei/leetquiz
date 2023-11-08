@@ -8,7 +8,7 @@
 }
 
 html {
-    font-size: 115%;
+    font-size: 100%;
 }
 
 b {
@@ -38,6 +38,7 @@ header {
 .logo {
     display: flex;
     flex-direction: row;
+    align-items: center;
     justify-content: center;
     width: max-content;
     height: 46px;

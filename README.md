@@ -1,6 +1,6 @@
 # leetquiz
  
 - TODO:
-    - add questions
-    - fix set selection
+    - add quiz images to index
     - google oauth
+    - add more questions
