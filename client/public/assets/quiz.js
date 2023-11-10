@@ -7,6 +7,7 @@ async function loadQuestion(questionID) {
         .then((data) => {
             questionPartsCount = data.questions.length;
             questionPartAnswer = data.questions[questionPart].answer;
+            questionData = data;
             displayDescription();
             displayQuestionPart(0);
             })
@@ -355,6 +356,7 @@ let questionPart = 0;
 // questionPartAnswer
 // questionDataRaw
 
+// question data parsed through ejs (server-side rendering) for default question
 questionDataRaw = questionDataRaw.replace(/&#34;/g, '\"');
 let questionData = JSON.parse(questionDataRaw);
 
