@@ -143,7 +143,8 @@ function updateSet() {
     if (!['all', 'custom'].includes(settings.set)) {
         return;
     }
-    if ((settings.topics.length == 0) || (settings.topics.length == numTopics)) {
+    if ((settings.topics.length == 0 || settings.topics.length == numTopics) &&
+        (settings.difficulty.length == 0 || settings.difficulty.length == numDifficulties)) {
         document.querySelectorAll('.set').forEach(set => {
             set.value = 'all';
         });
@@ -349,6 +350,7 @@ function closeOverlay() {
     overlaySettings.style.display = "none";
 }
 
+const numDifficulties = 3;
 const numTopics = 12;
 let questionPart = 0;
 // questionID

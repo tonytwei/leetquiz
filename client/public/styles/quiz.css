@@ -49,6 +49,12 @@ header {
     /*top right bottom left*/
 }
 
+.set-clear-filters {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
 h2 {
     font-size: 1.5em;
     color: var(--accent-lime);
@@ -67,7 +73,7 @@ input[type="checkbox"] {
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
-    width: 20px;
+    min-width: 20px;
     height: 20px;
     background-color: #fff;
     border: 3px solid var(--text-a);
