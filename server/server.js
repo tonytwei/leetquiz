@@ -27,6 +27,10 @@ app.get('/', (req, res) => {
 	res.render('index');
 });
 
+app.get('/account', (req, res) => {
+	res.render('account');
+});
+
 // 404 must be at bottom
 app.use((req, res) => {
 	res.status(404).render('404');

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>AlgoQuiz</title>
+        <meta name="description" content="LeetQuiz: DSA Quiz App">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" type="image/img" href="/images/logo-favicon.png">
+        
+        <script src="/assets/quiz.js"></script>
+        <link rel="stylesheet" href="/styles/common.css">
+        <link rel="stylesheet" href="/styles/colors.css">
+        <link rel="stylesheet" href="/styles/account.css">
+        <link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Inconsolata&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <div class="container container-a">
+            <%- include('partials/header.ejs') %>
+            <div class="account-container">
+                <div class="account-window">
+                    <div class="oauth-login">
+                        <button class="google-login">
+                            Continue with Google
+                            <img src="/images/google-logo.png" alt="Google Logo">
+                        </button>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="manual-login">
+                        <div class="create-account">
+                            <h4>Not a Member?</h4>
+                            <a>
+                                <h5 class="create-account-button"><u>Create Account</u></h5>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html> 
