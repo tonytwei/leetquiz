@@ -1,5 +1,6 @@
 local/
 node_modules/
 scripts/
-.env
 file_paths.txt
+server/config/keys.js
+```

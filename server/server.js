@@ -1,12 +1,15 @@
 const express = require('express');
+const session = require('express-session');
 const path = require('path');
 const mongoose = require('mongoose');
 const app = express();
-require('dotenv').config();
+const keys = require('./config/keys');
+const passport = require('passport');
+const passportSetup = require('./config/passport-setup');
 
 // connect to mongodb
-const port = process.env.PORT;
-const dbURI = process.env.DB_URI;
+const port = 3000;
+const dbURI = keys.mongodb.dbURI;
 mongoose.connect(dbURI)
 	.then((result) => {
 		app.listen(port);
@@ -18,15 +21,27 @@ mongoose.connect(dbURI)
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '../client/pages'));
 app.use(express.static(path.join(__dirname, '../client/public')));
+app.use(session({
+	secret: keys.session.cookieKey,
+	resave: false,
+	saveUninitialized: false
+}));
+
+// initialize passport
+app.use(passport.initialize());
+app.use(passport.session());
 
 // routes
 const quizRoute = require('./routes/quiz');
 app.use('/quiz', quizRoute);
+const authRoutes = require('./routes/auth-routes');
+app.use('/auth', authRoutes);
 
+
+// default pages
 app.get('/', (req, res) => {
 	res.render('index');
 });
-
 app.get('/account', (req, res) => {
 	res.render('account');
 });
