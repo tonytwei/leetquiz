@@ -10,6 +10,7 @@ async function loadQuestion(questionID) {
             questionData = data;
             displayDescription();
             displayQuestionPart(0);
+            toggleSaveButton(getQuestionCookie()[questionID].saved);
             })
         .catch((err) => console.log(err));
 }
@@ -205,33 +206,60 @@ function linkSettings() {
     });
 }
 
-// stores completed question data using cookies
-function setQuestionCompleted(questionID) {
-    let json = localStorage.getItem('completedQuestionIDs');
-    let completedQuestionIDs = {};
+function getQuestionCookie() {
+    let json = localStorage.getItem('questionDataCookie');
     if (json) {
-        completedQuestionIDs = JSON.parse(json);
+        return JSON.parse(json);
     }
-    completedQuestionIDs[questionID] = true;
-    localStorage.setItem('completedQuestionIDs', JSON.stringify(completedQuestionIDs));
+    return {};
 }
 
+function setQuestionCookie(questionCookie) {
+    localStorage.setItem('questionDataCookie', JSON.stringify(questionCookie));
+}
+
+// stores completed question data using cookies
 function toggleQuestionCompleted(questionID, completedBool) {
-    let json = localStorage.getItem('completedQuestionIDs');
-    let completedQuestionIDs = {};
-    if (json) {
-        completedQuestionIDs = JSON.parse(json);
+    let questionCookie = getQuestionCookie();
+    if (questionCookie[questionID]) {
+        questionCookie[questionID].completed = completedBool;
+    } else {
+        questionCookie[questionID] = {
+            completed: completedBool,
+            saved: false
+        };
     }
-    completedQuestionIDs[questionID] = completedBool;
-    localStorage.setItem('completedQuestionIDs', JSON.stringify(completedQuestionIDs));
+    setQuestionCookie(questionCookie);
+}
+
+function toggleQuestionSaved(currQuestionID, savedBool) {
+    let questionCookie = getQuestionCookie();
+    if (questionCookie[currQuestionID]) {
+        questionCookie[currQuestionID].saved = savedBool;
+    } else {
+        questionCookie[currQuestionID] = {
+            completed: false,
+            saved: savedBool
+        };
+    }
+    if (questionID == currQuestionID) {
+        toggleSaveButton(savedBool);
+    }
+    setQuestionCookie(questionCookie);
+}
+
+function toggleSaveButton(savedBool) {
+    if (savedBool) {
+        document.getElementById("save-question").style.display = "none";
+        document.getElementById("unsave-question").style.display = "flex";
+    } else {
+        document.getElementById("save-question").style.display = "flex";
+        document.getElementById("unsave-question").style.display = "none";
+    }
 }
 
 async function showQuestionsOverlay() {
-    let json = localStorage.getItem('completedQuestionIDs');
-    let completedQuestionIDs = {};
-    if (json) {
-        completedQuestionIDs = JSON.parse(json);
-    }
+    let questionCookie = getQuestionCookie();
 
     const questionData = getSettings();
     const topics_map = {
@@ -267,11 +295,27 @@ async function showQuestionsOverlay() {
             const tbody = document.querySelector("tbody");
             tbody.textContent = "";
             data.forEach((question) => {
+                if (!questionCookie[question.id]) {
+                    questionCookie[question.id] = {
+                        completed: false,
+                        saved: false
+                    };
+                }
+
+                const savedCheckbox = document.createElement("input");
+                savedCheckbox.type = "checkbox";
+                savedCheckbox.name = "saved";
+                savedCheckbox.value = question.id;
+                savedCheckbox.checked = questionCookie[question.id].saved;
+
+                const tdSaved = document.createElement("td");
+                tdSaved.appendChild(savedCheckbox);
+
                 const completedCheckbox = document.createElement("input");
                 completedCheckbox.type = "checkbox";
                 completedCheckbox.name = "completed";
                 completedCheckbox.value = question.id;
-                completedCheckbox.checked = completedQuestionIDs[question.id];
+                completedCheckbox.checked = questionCookie[question.id].completed;
 
                 const tdCompleted = document.createElement("td");
                 tdCompleted.appendChild(completedCheckbox);
@@ -291,9 +335,10 @@ async function showQuestionsOverlay() {
                 tdDifficulty.style.color = difficulty_color_map[question.difficulty];
 
                 const tr = document.createElement("tr");
-                if (completedQuestionIDs[question.id]) {
+                if (questionCookie[question.id].completed) {
                     tr.classList.add("completed");
                 }
+                tr.appendChild(tdSaved);
                 tr.appendChild(tdCompleted);
                 tr.appendChild(tdTitle);
                 tr.appendChild(tdDifficulty);
@@ -313,6 +358,13 @@ async function showQuestionsOverlay() {
             } else {
                 tr.classList.remove('completed');
             }
+        });
+    });
+
+    // toggle question saved
+    document.querySelectorAll('input[name="saved"]').forEach(input => {
+        input.addEventListener("change", (event) => {
+            toggleQuestionSaved(input.value, input.checked);
         });
     });
 
@@ -367,8 +419,14 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("submit-answer").addEventListener("click", checkAnswer);
     document.getElementById("next-question-part").addEventListener("click", nextQuestionPart);
     document.getElementById("next-question").addEventListener("click", () => {
-        setQuestionCompleted(questionID);
+        toggleQuestionCompleted(questionID, true);
         showQuestionsOverlay();
+    });
+    document.getElementById("save-question").addEventListener("click", () => {
+        toggleQuestionSaved(questionID, true)
+    });
+    document.getElementById("unsave-question").addEventListener("click", () => {
+        toggleQuestionSaved(questionID, false)
     });
     document.getElementById("show-questions").addEventListener("click", showQuestionsOverlay);
     document.getElementById("show-settings").addEventListener("click", showSettingsOverlay);

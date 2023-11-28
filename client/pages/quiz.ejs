@@ -14,9 +14,12 @@
             let questionDataRaw = "<%= JSON.stringify((data)) %>";
         </script>
         <script src="/assets/quiz.js"></script>
+        
         <link rel="stylesheet" href="/styles/common.css">
         <link rel="stylesheet" href="/styles/colors.css">
         <link rel="stylesheet" href="/styles/quiz.css">
+        <link rel="stylesheet" href="/styles/question-list.css">
+
         <link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Inconsolata&display=swap" rel="stylesheet">
     </head>
@@ -154,7 +157,10 @@
                                     </div>
                                     <div class="button-container-icons">
                                         <button id="save-question" type="button" name="save-question">
-                                            <img src="/images/quiz-ui/star.png" alt="quiz question save">
+                                            <img src="/images/quiz-ui/bookmark-add.png" alt="quiz question save">
+                                        </button>
+                                        <button id="unsave-question" type="button" name="save-question">
+                                            <img src="/images/quiz-ui/bookmark-added.png" alt="quiz question save">
                                         </button>
                                         <button id="show-questions" type="button" name="show-questions">
                                             <img src="/images/quiz-ui/menu.png" alt="quiz question menu">
@@ -254,6 +260,7 @@
                                 <table>
                                     <thead>
                                         <tr>
+                                            <th>Saved</th>
                                             <th>Completed</th>
                                             <th>Problem</th>
                                             <th>Difficulty</th>
@@ -261,6 +268,7 @@
                                     </thead>
                                     <tbody>
                                         <tr>
+                                            <td><input type="checkbox" name="saved" value="questionID"></td>
                                             <td><input type="checkbox" name="completed" value="questionID"></td>
                                             <td>Title</td>
                                             <td>Difficulty</td>

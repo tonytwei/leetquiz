@@ -34,6 +34,8 @@ app.use(passport.session());
 // routes
 const quizRoute = require('./routes/quiz');
 app.use('/quiz', quizRoute);
+const accountRoute = require('./routes/account');
+app.use('/account', accountRoute);
 const authRoutes = require('./routes/auth-routes');
 app.use('/auth', authRoutes);
 

@@ -7,10 +7,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="icon" type="image/img" href="/images/logo-favicon.png">
         
-        <script src="/assets/quiz.js"></script>
         <link rel="stylesheet" href="/styles/common.css">
         <link rel="stylesheet" href="/styles/colors.css">
         <link rel="stylesheet" href="/styles/account.css">
+        <link rel="stylesheet" href="/styles/question-list.css">
+
         <link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Inconsolata&display=swap" rel="stylesheet">
     </head>
@@ -27,13 +28,68 @@
                     </div>
                     <div class="divider"></div>
                     <div class="manual-login">
-                        <div class="create-account">
-                            <h4>Not a Member?</h4>
-                            <a>
-                                <h5 class="create-account-button"><u>Create Account</u></h5>
-                            </a>
+                        <div class="sign-in">
+                            <div class="sign-up-container">
+                                <h4>New to AlgoQuiz?</h4>
+                                <a>
+                                    <h5 class="sign-up-button">Sign Up</h5>
+                                </a>
+                            </div>
+                            <form>
+                                <div class="input-container">
+                                    <label for="email">Email</label>
+                                    <input type="email" name="email" placeholder="Enter your email address" required>
+                                </div>
+                                <br>
+                                <div class="input-container">
+                                    <label for="password">Password</label>
+                                    <input type="password" name="password" placeholder="******" required>
+                                </div>
+                            </form>
+                            <div class="forgot-password">
+                                <a>
+                                    <h5 class="forgot-password-button">Forgot Password?</h5>
+                                </a>
+                            </div>
+                            <button id="login" class="button" href="#">Login</button>
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="profile-container">
+                <div class="profile-buttons">
+                    <button id="completed" class="button" href="#">
+                        <img src="/images/quiz-ui/completed.png" alt="quiz question menu">
+                        Completed
+                    </button>
+                    <button id="saved" class="button" href="#">
+                        <img src="/images/quiz-ui/bookmark.png" alt="quiz question menu">
+                        Saved
+                    </button>
+                    <button id="sign-out" class="button" href="#">
+                        <img src="/images/quiz-ui/logout.png" alt="quiz question menu">
+                        Sign Out
+                    </button>
+                </div>
+                <div class="questions-list">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Saved</th>
+                                <th>Completed</th>
+                                <th>Problem</th>
+                                <th>Difficulty</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="checkbox" name="saved" value="questionID"></td>
+                                <td><input type="checkbox" name="completed" value="questionID"></td>
+                                <td>Title</td>
+                                <td>Difficulty</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

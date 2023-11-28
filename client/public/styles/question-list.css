@@ -1,0 +1,85 @@
+.questions-list {
+    color: white;
+    background-color: var(--quiz-grey);
+    border-radius: 5px;
+    max-width: max-content;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+thead th {
+    padding: 10px 15px;
+    text-align: center;
+    border-bottom: 3px solid #333;
+    min-width: 110px;
+}
+
+thead th:nth-child(3) {
+    text-align: left;
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+tbody tr:hover {
+    animation: fadeIn 0.3s;
+    background-color: #e0e0e0;
+}
+
+tbody tr {
+    border-bottom: 2px solid #ccc;
+}
+
+tbody tr:last-child {
+    border-bottom: none;
+}
+
+td {
+    padding: 10px 15px;
+    text-align: center;
+}
+
+input[type="checkbox"] {
+    vertical-align: middle;
+}
+
+tr > td:nth-child(3) {
+    text-align: left;
+    cursor: pointer;
+}
+
+tr:hover > td:nth-child(3) {
+    color: #5781ff;
+}
+
+input[type="checkbox"] {
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    min-width: 20px;
+    height: 20px;
+    background-color: #fff;
+    border: 3px solid var(--text-a);
+    border-radius: 3px;
+    transition: background-color 0.3s;
+}
+
+input[name="saved"]:checked {
+    background-color: var(--accent-yellow);
+    border: 3px solid var(--accent-dark-yellow);
+}
+
+input[name="completed"]:checked {
+    background-color: var(--accent-lime);
+    border: 3px solid var(--accent-dark-lime);
+}
+
+.completed {
+    background-color: var(--background-lime);
+    border-radius: 5px;
+}
