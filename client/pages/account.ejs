@@ -18,58 +18,22 @@
     <body>
         <div class="container container-a">
             <%- include('partials/header.ejs') %>
-            <div class="account-container">
-                <div class="account-window">
-                    <div class="oauth-login">
-                        <a class="google-login" href="/auth/google">
-                            Continue with Google
-                            <img src="/images/google-logo.png" alt="Google Logo">
-                        </a>
-                    </div>
-                    <div class="divider"></div>
-                    <div class="manual-login">
-                        <div class="sign-in">
-                            <div class="sign-up-container">
-                                <h4>New to AlgoQuiz?</h4>
-                                <a>
-                                    <h5 class="sign-up-button">Sign Up</h5>
-                                </a>
-                            </div>
-                            <form>
-                                <div class="input-container">
-                                    <label for="email">Email</label>
-                                    <input type="email" name="email" placeholder="Enter your email address" required>
-                                </div>
-                                <br>
-                                <div class="input-container">
-                                    <label for="password">Password</label>
-                                    <input type="password" name="password" placeholder="******" required>
-                                </div>
-                            </form>
-                            <div class="forgot-password">
-                                <a>
-                                    <h5 class="forgot-password-button">Forgot Password?</h5>
-                                </a>
-                            </div>
-                            <button id="login" class="button" href="#">Login</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div class="profile-container">
                 <div class="profile-buttons">
-                    <button id="completed" class="button" href="#">
-                        <img src="/images/quiz-ui/completed.png" alt="quiz question menu">
-                        Completed
-                    </button>
-                    <button id="saved" class="button" href="#">
+                    <div id="saved-box">
                         <img src="/images/quiz-ui/bookmark.png" alt="quiz question menu">
                         Saved
-                    </button>
-                    <button id="sign-out" class="button" href="#">
-                        <img src="/images/quiz-ui/logout.png" alt="quiz question menu">
-                        Sign Out
-                    </button>
+                    </div>
+                    <div id="completed-box">
+                        <img src="/images/quiz-ui/completed.png" alt="quiz question menu">
+                        Completed
+                    </div>
+                    <a href="/auth/logout">
+                        <div id="sign-out-box">
+                            <img src="/images/quiz-ui/logout.png" alt="quiz question menu">
+                            Sign Out
+                        </div>
+                    </a>
                 </div>
                 <div class="questions-list">
                     <table>

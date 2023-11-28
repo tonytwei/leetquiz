@@ -1,6 +1,20 @@
 const router = require('express').Router();
 const passport = require('passport');
 
+const authCheck = (req, res, next) => {
+    if (req.user) {
+        // if user is logged in
+        res.redirect('/account');
+    } else {
+        // if logged in
+        next();
+    }
+};
+
+router.get('/', authCheck, (req, res) => {
+    res.render('auth');
+});
+
 // auth login
 // TODO: delete?
 router.get('/login', (req, res) => {
@@ -9,8 +23,13 @@ router.get('/login', (req, res) => {
 
 // auth logout
 router.get('/logout', (req, res) => {
-    // handle with passport
-    res.send('logging out');
+    req.logout((err) => {
+        if (err) {
+            console.error(err);
+            return;
+        }
+      });
+    res.redirect('/auth');
 });
 
 // auth with google

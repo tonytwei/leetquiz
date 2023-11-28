@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>AlgoQuiz</title>
+        <meta name="description" content="LeetQuiz: DSA Quiz App">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" type="image/img" href="/images/logo-favicon.png">
+        
+        <link rel="stylesheet" href="/styles/common.css">
+        <link rel="stylesheet" href="/styles/colors.css">
+        <link rel="stylesheet" href="/styles/auth.css">
+
+        <link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Inconsolata&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <div class="container container-a">
+            <%- include('partials/header.ejs') %>
+            <div class="account-container">
+                <div class="account-window">
+                    <div class="oauth-login">
+                        <a class="google-login" href="/auth/google">
+                            Continue with Google
+                            <img src="/images/google-logo.png" alt="Google Logo">
+                        </a>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="manual-login">
+                        <div class="sign-in">
+                            <div class="sign-up-container">
+                                <h4>New to AlgoQuiz?</h4>
+                                <a>
+                                    <h5 class="sign-up-button">Sign Up</h5>
+                                </a>
+                            </div>
+                            <form>
+                                <div class="input-container">
+                                    <label for="email">Email</label>
+                                    <input type="email" name="email" placeholder="Enter your email address" required>
+                                </div>
+                                <br>
+                                <div class="input-container">
+                                    <label for="password">Password</label>
+                                    <input type="password" name="password" placeholder="******" required>
+                                </div>
+                            </form>
+                            <div class="forgot-password">
+                                <a>
+                                    <h5 class="forgot-password-button">Forgot Password?</h5>
+                                </a>
+                            </div>
+                            <button id="login" class="button" href="#">Login</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html> 

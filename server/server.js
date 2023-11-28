@@ -36,7 +36,7 @@ const quizRoute = require('./routes/quiz');
 app.use('/quiz', quizRoute);
 const accountRoute = require('./routes/account');
 app.use('/account', accountRoute);
-const authRoutes = require('./routes/auth-routes');
+const authRoutes = require('./routes/auth');
 app.use('/auth', authRoutes);
 
 
