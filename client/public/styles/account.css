@@ -16,24 +16,56 @@ button {
     color: white;
 }
 
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    padding: 35px 0px;
+    gap: 10px;
+}
+
 .profile-buttons {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    gap: 10px;
     width: 100%;
-    height: max-content;
+    gap: 10px;
+    height: 40px;
+    color: white;
 }
 
-#saved-box, #completed-box, #sign-out-box {
+a {
+    display: contents;
+    color: white;
+}
+
+.profile-buttons label {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
     gap: 10px;
     width: 30%;
-    height: max-content;
+    height: 100%;
     border-radius: 5px;
+    margin: 5px solid black;
     background-color: var(--quiz-grey);
+    cursor: pointer;
+}
+
+.profile-buttons div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+}
+
+.profile-buttons input {
+    display: none;
+}
+
+#saved-box:hover, #completed-box:hover, #sign-out-box:hover {
+    background-color: var(--accent-lime);
 }

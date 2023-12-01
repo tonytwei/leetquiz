@@ -6,6 +6,11 @@
         <meta name="description" content="LeetQuiz: DSA Quiz App">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="icon" type="image/img" href="/images/logo-favicon.png">
+
+        <script>
+            let userDataRaw = '<%= JSON.stringify((result)) %>'
+        </script>
+        <script src="/assets/account.js"></script>
         
         <link rel="stylesheet" href="/styles/common.css">
         <link rel="stylesheet" href="/styles/colors.css">
@@ -20,19 +25,28 @@
             <%- include('partials/header.ejs') %>
             <div class="profile-container">
                 <div class="profile-buttons">
-                    <div id="saved-box">
-                        <img src="/images/quiz-ui/bookmark.png" alt="quiz question menu">
-                        Saved
-                    </div>
-                    <div id="completed-box">
-                        <img src="/images/quiz-ui/completed.png" alt="quiz question menu">
-                        Completed
-                    </div>
-                    <a href="/auth/logout">
-                        <div id="sign-out-box">
-                            <img src="/images/quiz-ui/logout.png" alt="quiz question menu">
-                            Sign Out
+                    <label id="saved-box">
+                        <input type="checkbox">
+                        <div class="saved-box-content">
+                            <img src="/images/quiz-ui/bookmark.png" alt="quiz question menu">
+                            Saved
                         </div>
+                    </label>
+                    <label id="completed-box">
+                        <input type="checkbox">
+                        <div class="completed-box-content">
+                            <img src="/images/quiz-ui/completed.png" alt="quiz question menu">
+                            Saved
+                        </div>
+                    </label>
+                    <a href="/auth/logout" id="sign-out-container">
+                        <label id="sign-out-box">
+                            <input type="checkbox">
+                            <div class="sign-out-box-content">
+                                <img src="/images/quiz-ui/logout.png" alt="quiz question menu">
+                                Saved
+                            </div>
+                        </label>
                     </a>
                 </div>
                 <div class="questions-list">
