@@ -8,7 +8,7 @@
         <link rel="icon" type="image/img" href="/images/logo-favicon.png">
 
         <script>
-            let userDataRaw = '<%= JSON.stringify((result)) %>'
+            let userDataRaw = '<%= JSON.stringify((user)) %>'
         </script>
         <script src="/assets/account.js"></script>
         
@@ -36,17 +36,14 @@
                         <input type="checkbox">
                         <div class="completed-box-content">
                             <img src="/images/quiz-ui/completed.png" alt="quiz question menu">
-                            Saved
+                            Completed
                         </div>
                     </label>
-                    <a href="/auth/logout" id="sign-out-container">
-                        <label id="sign-out-box">
-                            <input type="checkbox">
-                            <div class="sign-out-box-content">
-                                <img src="/images/quiz-ui/logout.png" alt="quiz question menu">
-                                Saved
-                            </div>
-                        </label>
+                    <a id="sign-out-box" href="/auth/logout">
+                        <div class="sign-out-box-content">
+                            <img src="/images/quiz-ui/logout.png" alt="quiz question menu">
+                            Sign Out
+                        </div>
                     </a>
                 </div>
                 <div class="questions-list">

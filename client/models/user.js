@@ -6,14 +6,13 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
-    finishedQuestions: {
-        type: [String],
-        required: true
-    },
-    savedQuestions: {
-        type: [String],
-        required: true
-    },
+    questionCookie: {
+      type: Map,
+      of: {
+        completed: Boolean,
+        saved: Boolean
+      }
+    }
 });
 
 module.exports = mongoose.model('User', userSchema);

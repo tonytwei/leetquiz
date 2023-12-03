@@ -27,16 +27,19 @@ passport.use(
         User.findOne({oauth_id: profile.id}).then((currentUser) => {
             if (currentUser) {
                 // already have the user
-                console.log("user is: " + currentUser);
+                console.log("passport-setup//user is: " + currentUser);
                 done(null, currentUser);
             } else {
                 // if not, create user in our db
                 new User({
                     oauth_id: profile.id,
-                    finishedQuestions: [],
-                    savedQuestions: []
+                    questionCookie: {
+                        "242" : {
+                            "completed": false,
+                            "saved": false
+                        }
+                    }
                 }).save().then((newUser) => {
-                    console.log("new user created: " + newUser);
                     done(null, newUser);
                 });
             }

@@ -4,6 +4,8 @@ const passport = require('passport');
 const authCheck = (req, res, next) => {
     if (req.user) {
         // if user is logged in
+        req.session.userId = req.user.id;
+        console.log('auth//User ID:', req.session.userId);
         res.redirect('/account');
     } else {
         // if logged in
@@ -40,7 +42,7 @@ router.get('/google', passport.authenticate('google', {
 // callback route for google to redirect to
 router.get('/google/redirect', passport.authenticate('google'), (req, res) => {
     //res.send(req.user);
-    res.redirect('/account');
+    res.redirect('/auth');
 });
 
 module.exports = router;

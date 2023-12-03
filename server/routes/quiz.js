@@ -1,14 +1,16 @@
 const router = require('express').Router();
 const Question = require('../../client/models/question');
+const User = require('../../client/models/user')
 
 router.get('/', async (req, res) => {
 	// default question rendered server side
+	console.log('quiz//User ID:', req.session.userId);
 	const defaultQuestionID = "242";
 	Question.find({ id: defaultQuestionID })
 		.exec()
 		.then((result) => {
-			let data = result[0];
-			res.render('quiz', { data });
+			let questionData = result[0];
+			res.render('quiz', { questionData: questionData});
 		})
 		.catch((err) => {
 			console.log(err);
@@ -48,6 +50,24 @@ router.get('/get-question', (req, res) => {
 		.exec()
 		.then((data) => {
 			res.send(data[0]);
+		})
+		.catch((err) => {
+			console.log(err);
+			res.status(500).send('Internal Server Error');
+		});
+});
+
+router.get('/fetch-cookie', async (req, res) => {
+	const userID = req.session.userId;
+	User.findById(userID)
+		.exec()
+		.then((data) => {
+			if (!data) {
+				console.log('User not found');
+				res.status(203).send('User not found');
+			} else {
+				res.send(data.questionCookie);
+			}
 		})
 		.catch((err) => {
 			console.log(err);

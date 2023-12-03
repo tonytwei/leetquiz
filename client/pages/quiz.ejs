@@ -8,10 +8,7 @@
         <link rel="icon" type="image/img" href="/images/logo-favicon.png">
         
         <script>
-            let questionID = '<%= data.id %>';
-            let questionPartsCount = '<%= data.questions.length %>';
-            let questionPartAnswer = '<%= data.questions[0].answer %>';
-            let questionDataRaw = "<%= JSON.stringify(data) %>";
+            let questionDataRaw = "<%= JSON.stringify(questionData) %>";
         </script>
         <script src="/assets/quiz.js"></script>
         
@@ -113,39 +110,39 @@
                     </div>
                     <div class="quiz-right">
                         <div class="question-header">
-                            <h1><%= data.title %></h1>
-                            <h2><%= data.difficulty %></h2>
+                            <h1><%= questionData.title %></h1>
+                            <h2><%= questionData.difficulty %></h2>
                         </div>
                         <div class="quiz-body">
                             <div class="question-description">
-                                <p><%= data.description %></p>
+                                <p><%= questionData.description %></p>
                                 <div class="question-examples-container">
-                                    <% for(var i=0; i<data.examples.length; i++) { %>
+                                    <% for(var i=0; i<questionData.examples.length; i++) { %>
                                     <div class="question-example">
                                         <h3>Example <%= i+1 %>: </h3>
-                                        <p>Input: <%= data.examples[i].input %></p>
-                                        <p>Output: <%= data.examples[i].output %></p>
+                                        <p>Input: <%= questionData.examples[i].input %></p>
+                                        <p>Output: <%= questionData.examples[i].output %></p>
                                     </div>
                                     <% } %>
                                 </div>
                                 <div class="question-constraints">
                                     <h3>Constraints:</h3>
                                     <ul>
-                                        <% for(var i=0; i<data.constraints.length; i++) { %>
+                                        <% for(var i=0; i<questionData.constraints.length; i++) { %>
                                         <li>
-                                            <p class="code"><%= data.constraints[i] %></p>
+                                            <p class="code"><%= questionData.constraints[i] %></p>
                                         </li>
                                         <% } %>
                                     </ul>
                                 </div>
                             </div>
                             <div class="question-answer">
-                                <p><%= data.questions[0].questionText %></p>
+                                <p><%= questionData.questions[0].questionText %></p>
                                 <div class="radio-container">
-                                    <% for(var j=0; j<data.questions[0].options.length; j++) { %>
+                                    <% for(var j=0; j<questionData.questions[0].options.length; j++) { %>
                                     <div class="radio-option">
                                         <input type="radio" id="answer-<%= j %>" name="answer" value="<%= j %>"> 
-                                        <label for="answer-<%= j %>"><%= data.questions[0].options[j] %></label>
+                                        <label for="answer-<%= j %>"><%= questionData.questions[0].options[j] %></label>
                                     </div>
                                     <% } %>
                                 </div>

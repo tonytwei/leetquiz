@@ -24,7 +24,8 @@ app.use(express.static(path.join(__dirname, '../client/public')));
 app.use(session({
 	secret: keys.session.cookieKey,
 	resave: false,
-	saveUninitialized: false
+	saveUninitialized: false,
+	cookie: { secure: false } // set to true if your app is on https
 }));
 
 // initialize passport

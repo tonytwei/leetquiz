@@ -206,12 +206,26 @@ function linkSettings() {
     });
 }
 
-function getQuestionCookie() {
-    let json = localStorage.getItem('questionDataCookie');
-    if (json) {
-        return JSON.parse(json);
-    }
-    return {};
+async function getQuestionCookie() {
+    const url = `/quiz/fetch-cookie`;
+    await fetch(url)
+        .then((response) => {
+            if (response.status === 203) {
+                let questionDataCookie = localStorage.getItem('questionDataCookie');
+                if (questionDataCookie) {
+                    console.log("A");
+                    console.log(JSON.parse(questionDataCookie));
+                    return JSON.parse(questionDataCookie);
+                }
+                console.log("B");
+                return {};
+            }
+            return response.json();
+        })
+        .then((data) => {
+            return data;
+        })
+        .catch((err) => console.log(err));
 }
 
 function setQuestionCookie(questionCookie) {
@@ -259,7 +273,9 @@ function toggleSaveButton(savedBool) {
 }
 
 async function showQuestionsOverlay() {
-    let questionCookie = getQuestionCookie();
+    // TODO work on question cookie
+    let questionCookie = await getQuestionCookie();
+    console.log(await getQuestionCookie());
 
     const questionData = getSettings();
     const topics_map = {
@@ -295,7 +311,7 @@ async function showQuestionsOverlay() {
             const tbody = document.querySelector("tbody");
             tbody.textContent = "";
             data.forEach((question) => {
-                if (!questionCookie[question.id]) {
+                if (!questionCookie || !questionCookie[question.id]) {
                     questionCookie[question.id] = {
                         completed: false,
                         saved: false
@@ -402,17 +418,16 @@ function closeOverlay() {
     overlaySettings.style.display = "none";
 }
 
-const numDifficulties = 3;
-const numTopics = 12;
-let questionPart = 0;
-// questionID
-// questionPartsCount
-// questionPartAnswer
-// questionDataRaw
-
 // question data parsed through ejs (server-side rendering) for default question
 questionDataRaw = questionDataRaw.replace(/&#34;/g, '\"');
 let questionData = JSON.parse(questionDataRaw);
+
+const numDifficulties = 3;
+const numTopics = 12;
+let questionPart = 0;
+let questionID = questionData.id;
+let questionPartsCount = questionData.questions.length;
+let questionPartAnswer = questionData.questions[0].answer;
 
 document.addEventListener("DOMContentLoaded", () => {
     linkSettings();
