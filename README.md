@@ -1,4 +1,4 @@
-# leetquiz
+# Leetquiz
 
 ### Getting started
 
